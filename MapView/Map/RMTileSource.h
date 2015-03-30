@@ -57,6 +57,13 @@
 /** A Boolean value indicating whether the tiles from this source are opaque. Setting this correctly is important when using RMCompositeSource so that alpha transparency can be preserved when compositing tile images. */
 @property (nonatomic, assign, getter=isOpaque) BOOL opaque;
 
+/**
+ *  Boolean flag to indicate if this tile source is hidden. If it is, we will not make any network requests or render any tiles
+ *  if it is added to a visible map view. This can be useful, as removing tile sources is an expensive operation, and when a tile
+ *  source is 
+ */
+@property (nonatomic, assign, getter=isHidden) BOOL hidden;
+
 @property (nonatomic, readonly) RMFractalTileProjection *mercatorToTileProjection;
 @property (nonatomic, readonly) RMProjection *projection;
 
