@@ -60,6 +60,10 @@
 }
 
 -(UIImage *)cachedImageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache {
+    if (self.isHidden) {
+        return nil;
+    }
+
     __block UIImage *image = nil;
 
     RMTile normalisedTile = [[self mercatorToTileProjection] normaliseTile:tile];
@@ -82,6 +86,10 @@
 
 - (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache
 {
+    if (self.isHidden) {
+        return nil;
+    }
+    
     __block UIImage *image = nil;
 
 	tile = [[self mercatorToTileProjection] normaliseTile:tile];
