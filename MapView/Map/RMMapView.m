@@ -2095,8 +2095,9 @@
 
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, [[UIScreen mainScreen] scale]);
 
-    for (RMMapTiledLayerView *tiledLayerView in _tiledLayersSuperview.subviews)
+    for (RMMapTiledLayerView *tiledLayerView in _tiledLayersSuperview.subviews) {
         tiledLayerView.useSnapshotRenderer = YES;
+    }
 
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
 
