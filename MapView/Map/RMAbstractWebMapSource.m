@@ -64,10 +64,10 @@
 
     RMTile normalisedTile = [[self mercatorToTileProjection] normaliseTile:tile];
 
-    // Return NSNull here so that the RMMapTiledLayerView will try to
+    // Return nil here so that the RMMapTiledLayerView will try to
     // fetch another tile if missingTilesDepth > 0
     if ( ! [self tileSourceHasTile:normalisedTile])
-    return (UIImage *)[NSNull null];
+        return nil;
 
     if (self.isCacheable)
     {
@@ -77,7 +77,7 @@
             return image;
         }
     }
-    return (UIImage *)[NSNull null];
+    return nil;
 }
 
 - (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache
