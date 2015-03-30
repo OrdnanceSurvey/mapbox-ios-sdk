@@ -60,7 +60,8 @@
 /**
  *  Boolean flag to indicate if this tile source is hidden. If it is, we will not make any network requests or render any tiles
  *  if it is added to a visible map view. This can be useful, as removing tile sources is an expensive operation, and when a tile
- *  source is 
+ *  source is active network requests will happen when the content may be replaced by another tilesource in the same location at
+ *  a different zoom level.
  */
 @property (nonatomic, assign, getter=isHidden) BOOL hidden;
 
