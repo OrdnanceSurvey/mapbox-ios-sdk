@@ -31,6 +31,16 @@
 #import "RMConfiguration.h"
 
 #define HTTP_404_NOT_FOUND 404
+#define HTTP_204_NO_CONTENT 204
+
+@interface RMAbstractWebMapSource ()
+
+/**
+ *  A dictionary mapping default tile images to zoom levels. This is used if the WMTS returns an HTTP 204 (no content) response.
+ */
+@property (nonatomic, strong) NSMutableDictionary *defaultImagesAtZoomLevels;
+
+@end
 
 @implementation RMAbstractWebMapSource
 
@@ -44,6 +54,7 @@
     self.retryCount = RMAbstractWebMapSourceDefaultRetryCount;
     self.requestTimeoutSeconds = RMAbstractWebMapSourceDefaultWaitSeconds;
 
+    _defaultImagesAtZoomLevels = [NSMutableDictionary dictionary];
     return self;
 }
 
@@ -196,13 +207,18 @@
             [request setTimeoutInterval:(self.requestTimeoutSeconds / (CGFloat)self.retryCount)];
             image = [UIImage imageWithData:[NSURLConnection sendBrandedSynchronousRequest:request returningResponse:&response error:nil]];
 
-            if (response.statusCode == HTTP_404_NOT_FOUND)
+            if (response.statusCode == HTTP_404_NOT_FOUND) {
                 break;
+            } else if (response.statusCode == HTTP_204_NO_CONTENT) { // Return default tile image in case HTTP 204 is found
+                image = self.defaultImagesAtZoomLevels[@(tile.zoom)];
+            }
+
         }
     }
 
-    if (image && self.isCacheable)
+    if (image && self.isCacheable) {
         [tileCache addImage:image forTile:tile withCacheKey:[self uniqueTilecacheKey]];
+    }
 
     dispatch_async(dispatch_get_main_queue(), ^(void)
     {
@@ -210,6 +226,10 @@
     });
 
     return image;
+}
+
+-(void)addDefaultImage:(UIImage *)image forZoomLevel:(NSUInteger)zoom {
+    self.defaultImagesAtZoomLevels[@(zoom)] = image;
 }
 
 @end

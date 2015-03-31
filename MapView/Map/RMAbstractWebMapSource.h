@@ -54,5 +54,13 @@
     @return An array of tile URLs to download, listed bottom to top. */
 - (NSArray *)URLsForTile:(RMTile)tile;
 
+/**
+ *  Adds a default image to be provided for a particular zoom level if the WMTS returns an HTTP 204 (no content) response.
+ *
+ *  @param image The default image to use.
+ *  @param zoom  The zoom level this default image corresponds to.
+ */
+-(void)addDefaultImage:(UIImage *)image forZoomLevel:(NSUInteger)zoom;
+
 
 @end
