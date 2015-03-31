@@ -40,11 +40,6 @@
  */
 @property (nonatomic, strong) NSMutableDictionary *defaultImagesAtZoomLevels;
 
-/**
- *  The NSOperation LIFO queue (i.e. stack) used to download tile image data.
- */
-@property (nonatomic, strong) NSOperationStack *tileDownloadOperationStack;
-
 @end
 
 @implementation RMAbstractWebMapSource
@@ -59,7 +54,7 @@
     self.retryCount = RMAbstractWebMapSourceDefaultRetryCount;
     self.requestTimeoutSeconds = RMAbstractWebMapSourceDefaultWaitSeconds;
 
-        _defaultImagesAtZoomLevels = [NSMutableDictionary dictionary];
+    _defaultImagesAtZoomLevels = [NSMutableDictionary dictionary];
     return self;
 }
 
