@@ -665,7 +665,6 @@
 				B8C9740D0E8A196E007D16AD /* Map */,
 				DD932BC2165C294100D69D49 /* Externals */,
 				4AA8AAA71AA0F311007C21F1 /* MapBox-iOS-SDK */,
-				4AA8AAB41AA0F311007C21F1 /* MapBox-iOS-SDKTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -703,13 +702,6 @@
 				4AA8AAA91AA0F311007C21F1 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4AA8AAB41AA0F311007C21F1 /* MapBox-iOS-SDKTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "MapBox-iOS-SDKTests";
 			sourceTree = "<group>";
 		};
 		B83E64CE0E80E73F001663B6 /* Tile & Overlay Rendering */ = {

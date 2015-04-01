@@ -228,8 +228,15 @@
     return image;
 }
 
--(void)addDefaultImage:(UIImage *)image forZoomLevel:(NSUInteger)zoom {
+- (void)addDefaultImage:(UIImage *)image forZoomLevel:(NSUInteger)zoom
+{
     self.defaultImagesAtZoomLevels[@(zoom)] = image;
+}
+
+- (UIImage *)defaultImageForZoomLevel:(NSUInteger)zoom
+{
+    UIImage *image = self.defaultImagesAtZoomLevels[@(zoom)];
+    return image;
 }
 
 @end
