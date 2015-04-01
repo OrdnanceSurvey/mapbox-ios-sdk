@@ -232,6 +232,14 @@
 		4AF3A6D61AA534DA00CD6FAF /* Mapbox_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 4AF3A6D51AA534DA00CD6FAF /* Mapbox_Prefix.pch */; };
 		96492C400FA8AD3400EBA6D2 /* RMGlobalConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B1EB26C610B5D8E6009F8658 /* RMNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EB26C510B5D8E6009F8658 /* RMNotifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		B31827241ACAAD400041BEEC /* NSOperationStack.h in Headers */ = {isa = PBXBuildFile; fileRef = B31827221ACAAD400041BEEC /* NSOperationStack.h */; };
+		B31827251ACAAD400041BEEC /* NSOperationStack.h in Headers */ = {isa = PBXBuildFile; fileRef = B31827221ACAAD400041BEEC /* NSOperationStack.h */; };
+		B31827261ACAAD400041BEEC /* NSOperationStack.m in Sources */ = {isa = PBXBuildFile; fileRef = B31827231ACAAD400041BEEC /* NSOperationStack.m */; };
+		B31827271ACAAD400041BEEC /* NSOperationStack.m in Sources */ = {isa = PBXBuildFile; fileRef = B31827231ACAAD400041BEEC /* NSOperationStack.m */; };
+		B318272A1ACAB1320041BEEC /* RMTileDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = B31827281ACAB1320041BEEC /* RMTileDownloadOperation.h */; };
+		B318272B1ACAB1320041BEEC /* RMTileDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = B31827281ACAB1320041BEEC /* RMTileDownloadOperation.h */; };
+		B318272C1ACAB1320041BEEC /* RMTileDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B31827291ACAB1320041BEEC /* RMTileDownloadOperation.m */; };
+		B318272D1ACAB1320041BEEC /* RMTileDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B31827291ACAB1320041BEEC /* RMTileDownloadOperation.m */; };
 		B3B8A78C1AC42BEE0083E33D /* libProj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD97C11516489678007C4652 /* libProj4.a */; };
 		B8474BA40EB40094006A0BC1 /* RMDatabaseCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B8474B980EB40094006A0BC1 /* RMDatabaseCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B8474BA50EB40094006A0BC1 /* RMDatabaseCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B8474B990EB40094006A0BC1 /* RMDatabaseCache.m */; };
@@ -432,6 +440,10 @@
 		4AF3A6D51AA534DA00CD6FAF /* Mapbox_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mapbox_Prefix.pch; sourceTree = "<group>"; };
 		96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGlobalConstants.h; sourceTree = "<group>"; };
 		B1EB26C510B5D8E6009F8658 /* RMNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMNotifications.h; sourceTree = "<group>"; };
+		B31827221ACAAD400041BEEC /* NSOperationStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOperationStack.h; sourceTree = "<group>"; };
+		B31827231ACAAD400041BEEC /* NSOperationStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOperationStack.m; sourceTree = "<group>"; };
+		B31827281ACAB1320041BEEC /* RMTileDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileDownloadOperation.h; sourceTree = "<group>"; };
+		B31827291ACAB1320041BEEC /* RMTileDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileDownloadOperation.m; sourceTree = "<group>"; };
 		B83E64B60E80E73F001663B6 /* RMPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPixel.h; sourceTree = "<group>"; };
 		B83E64B70E80E73F001663B6 /* RMPixel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMPixel.c; sourceTree = "<group>"; };
 		B83E64D00E80E73F001663B6 /* RMTileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileCache.h; sourceTree = "<group>"; };
@@ -653,7 +665,6 @@
 				B8C9740D0E8A196E007D16AD /* Map */,
 				DD932BC2165C294100D69D49 /* Externals */,
 				4AA8AAA71AA0F311007C21F1 /* MapBox-iOS-SDK */,
-				4AA8AAB41AA0F311007C21F1 /* MapBox-iOS-SDKTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -691,13 +702,6 @@
 				4AA8AAA91AA0F311007C21F1 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4AA8AAB41AA0F311007C21F1 /* MapBox-iOS-SDKTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "MapBox-iOS-SDKTests";
 			sourceTree = "<group>";
 		};
 		B83E64CE0E80E73F001663B6 /* Tile & Overlay Rendering */ = {
@@ -757,6 +761,10 @@
 				16EC85CD133CA6C300219947 /* RMAbstractMercatorTileSource.m */,
 				16EC85CE133CA6C300219947 /* RMAbstractWebMapSource.h */,
 				16EC85CF133CA6C300219947 /* RMAbstractWebMapSource.m */,
+				B31827281ACAB1320041BEEC /* RMTileDownloadOperation.h */,
+				B31827291ACAB1320041BEEC /* RMTileDownloadOperation.m */,
+				B31827221ACAAD400041BEEC /* NSOperationStack.h */,
+				B31827231ACAAD400041BEEC /* NSOperationStack.m */,
 			);
 			name = "Tile Sources";
 			sourceTree = "<group>";
@@ -1005,6 +1013,7 @@
 				4AA8AB061AA0F338007C21F1 /* RMMarker.h in Headers */,
 				4AA8AAC21AA0F322007C21F1 /* RMMapViewDelegate.h in Headers */,
 				4AA8AAC01AA0F322007C21F1 /* RMMapView.h in Headers */,
+				B31827241ACAAD400041BEEC /* NSOperationStack.h in Headers */,
 				4AA8AAC31AA0F322007C21F1 /* RMStaticMapView.h in Headers */,
 				4AA8AAD31AA0F328007C21F1 /* RMMBTilesSource.h in Headers */,
 				4AA8AADF1AA0F328007C21F1 /* RMTileMillSource.h in Headers */,
@@ -1035,6 +1044,7 @@
 				4AA8AADD1AA0F328007C21F1 /* RMBingSource.h in Headers */,
 				4AA8AB5C1AA0F373007C21F1 /* SMCalloutView.h in Headers */,
 				4AA8AB5E1AA0F373007C21F1 /* SMClassicCalloutView.h in Headers */,
+				B318272A1ACAB1320041BEEC /* RMTileDownloadOperation.h in Headers */,
 				4AA8AAC91AA0F328007C21F1 /* RMDBMapSource.h in Headers */,
 				4AA8AB571AA0F367007C21F1 /* FMDB.h in Headers */,
 				4AA8AB511AA0F367007C21F1 /* FMDatabaseAdditions.h in Headers */,
@@ -1085,6 +1095,7 @@
 				DDE357F416522661001DB842 /* RMPolylineAnnotation.h in Headers */,
 				DDE357F816522CD8001DB842 /* RMPolygonAnnotation.h in Headers */,
 				DD1985C1165C5F6400DF667F /* RMTileMillSource.h in Headers */,
+				B31827251ACAAD400041BEEC /* NSOperationStack.h in Headers */,
 				DD63176317D15EB5008CA79B /* RMCircleAnnotation.h in Headers */,
 				DD63175F17D1506D008CA79B /* RMGreatCircleAnnotation.h in Headers */,
 				B8C974220E8A19B2007D16AD /* RMProjection.h in Headers */,
@@ -1103,6 +1114,7 @@
 				1609AF8E14068B09008344B7 /* RMMapOverlayView.h in Headers */,
 				16128CF5148D295300C23C0E /* RMOpenSeaMapSource.h in Headers */,
 				DD8CDB4A14E0507100B73EB9 /* RMMapQuestOSMSource.h in Headers */,
+				B318272B1ACAB1320041BEEC /* RMTileDownloadOperation.h in Headers */,
 				16FFF2CB14E3DBF700A170EC /* RMMapQuestOpenAerialSource.h in Headers */,
 				DD3BEF7915913C55007892D8 /* RMAttributionViewController.h in Headers */,
 				16F3581B15864135003A3AD9 /* RMMapScrollView.h in Headers */,
@@ -1324,6 +1336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B31827261ACAAD400041BEEC /* NSOperationStack.m in Sources */,
 				4AA8AAD81AA0F328007C21F1 /* RMOpenSeaMapSource.m in Sources */,
 				4AA8AAEB1AA0F332007C21F1 /* RMCacheObject.m in Sources */,
 				4AA8AACC1AA0F328007C21F1 /* RMGenericMapSource.m in Sources */,
@@ -1373,6 +1386,7 @@
 				4AA8AB271AA0F35A007C21F1 /* RMMapScrollView.m in Sources */,
 				4AA8AB211AA0F35A007C21F1 /* RMTileImage.m in Sources */,
 				4AA8AAC61AA0F328007C21F1 /* RMCompositeSource.m in Sources */,
+				B318272C1ACAB1320041BEEC /* RMTileDownloadOperation.m in Sources */,
 				4AA8AACA1AA0F328007C21F1 /* RMDBMapSource.m in Sources */,
 				4AA8AB031AA0F338007C21F1 /* RMQuadTree.m in Sources */,
 				4AA8AB0F1AA0F33D007C21F1 /* RMUserTrackingBarButtonItem.m in Sources */,
@@ -1389,6 +1403,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B31827271ACAAD400041BEEC /* NSOperationStack.m in Sources */,
 				B8C9743F0E8A19B2007D16AD /* RMTileImage.m in Sources */,
 				B8C974400E8A19B2007D16AD /* RMTile.c in Sources */,
 				B8C974410E8A19B2007D16AD /* RMOpenStreetMapSource.m in Sources */,
@@ -1438,6 +1453,7 @@
 				DD56B9591961E23F00706C67 /* FMResultSet.m in Sources */,
 				DD5FA1EC15E2B020004EB6C5 /* RMLoadingTileView.m in Sources */,
 				DD41960216250ED40049E6BA /* RMTileCacheDownloadOperation.m in Sources */,
+				B318272D1ACAB1320041BEEC /* RMTileDownloadOperation.m in Sources */,
 				DD4195CA162356900049E6BA /* RMBingSource.m in Sources */,
 				DD1E3C6F161F954F004FC649 /* SMCalloutView.m in Sources */,
 				DD7C7E39164C894F0021CCA5 /* RMStaticMapView.m in Sources */,

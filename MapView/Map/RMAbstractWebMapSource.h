@@ -28,7 +28,7 @@
 #import "RMAbstractMercatorTileSource.h"
 #import "RMProjection.h"
 
-#define RMAbstractWebMapSourceDefaultRetryCount  3
+#define RMAbstractWebMapSourceDefaultRetryCount 3
 #define RMAbstractWebMapSourceDefaultWaitSeconds 15.0
 
 /** Abstract class representing a network-based location for retrieving map tiles for display. Developers can create subclasses in order to provide custom web addresses for tile downloads. */
@@ -60,7 +60,15 @@
  *  @param image The default image to use.
  *  @param zoom  The zoom level this default image corresponds to.
  */
--(void)addDefaultImage:(UIImage *)image forZoomLevel:(NSUInteger)zoom;
+- (void)addDefaultImage:(UIImage *)image forZoomLevel:(NSUInteger)zoom;
 
+/**
+ *  Get the default tile image for a given zoom level.
+ *
+ *  @param zoom The zoom level in question.
+ *
+ *  @return The default image for that zoom level, or nil if no image has been defined.
+ */
+- (UIImage *)defaultImageForZoomLevel:(NSUInteger)zoom;
 
 @end
