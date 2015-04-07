@@ -80,7 +80,7 @@
     _mapView = aMapView;
     _tileSource = aTileSource;
     _tileDownloadQueue = [[NSOperationQueue alloc] init];
-    _tileDownloadQueue.maxConcurrentOperationCount = 4;
+    _tileDownloadQueue.maxConcurrentOperationCount = 16;
 
     self.useSnapshotRenderer = NO;
 
