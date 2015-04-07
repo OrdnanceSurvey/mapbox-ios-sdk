@@ -30,6 +30,7 @@
 - (id)initWithTile:(RMTile)tile
      forTileSource:(id<RMTileSource>)source
         usingCache:(RMTileCache *)cache
+boundsInScrollView:(CGRect)bounds
         retryCount:(NSUInteger)retryCount
            timeout:(NSTimeInterval)timeout
 {
@@ -41,6 +42,7 @@
         _tileCache = cache;
         _requestTimeoutSeconds = timeout;
         _retryCount = retryCount;
+        _boundsInScrollViewContent = bounds;
     }
     return self;
 }
@@ -100,7 +102,7 @@
             {
                 break;
             } else if (response.statusCode == HTTP_204_NO_CONTENT) { // Return default tile image in case HTTP 204 is found
-                image = [(RMAbstractWebMapSource *)self.tileSource defaultImageForZoomLevel:self.tile.zoom];
+                self.image = [(RMAbstractWebMapSource *)self.tileSource defaultImageForZoomLevel:self.tile.zoom];
             }
 
             if (!self.image || error != nil)

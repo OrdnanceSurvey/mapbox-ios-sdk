@@ -37,7 +37,6 @@
 #import "RMAbstractWebMapSource.h"
 #import "RMDatabaseCache.h"
 #import "RMTileDownloadOperation.h"
-#import "NSOperationStack.h"
 
 #define IS_VALID_TILE_IMAGE(image) (image != nil && [image isKindOfClass:[UIImage class]])
 
@@ -46,7 +45,7 @@
 /**
  *  The NSOperation LIFO queue (i.e. stack) used to download tile image data.
  */
-@property (nonatomic, strong) NSOperationStack *tileDownloadStack;
+@property (nonatomic, strong) NSOperationQueue *tileDownloadQueue;
 
 @end
 
@@ -80,8 +79,8 @@
 
     _mapView = aMapView;
     _tileSource = aTileSource;
-    _tileDownloadStack = [[NSOperationStack alloc] init];
-    _tileDownloadStack.maxConcurrentOperationCount = 4;
+    _tileDownloadQueue = [[NSOperationQueue alloc] init];
+    _tileDownloadQueue.maxConcurrentOperationCount = 16;
 
     self.useSnapshotRenderer = NO;
 
@@ -107,6 +106,14 @@
 - (void)didMoveToWindow
 {
     self.contentScaleFactor = 1.0f;
+}
+
+- (void)cancelOffscreenTileDownloadsForBounds:(CGRect)bounds {
+    for (RMTileDownloadOperation *operation in self.tileDownloadQueue.operations) {
+        if(!CGRectIntersectsRect(operation.boundsInScrollViewContent, bounds)) {
+            [operation cancel];
+        }
+    }
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context
@@ -191,9 +198,8 @@
             UIGraphicsPopContext();
         }
     }
-    else
+    else  // Not using snapshot renderer
     {
-        // Not using snapshot renderer
         int x = floor(rect.origin.x / rect.size.width),
             y = floor(fabs(rect.origin.y / rect.size.height));
 
@@ -203,7 +209,13 @@
             x >>= 1;
             y >>= 1;
         }
-
+        
+        // Ugly method to get the map content offset bounds, so we can cancel tile
+        // downloads outside of it.
+        id mapScrollView = self.superview.superview;
+        CGRect mapScrollViewBounds = ((UIScrollView *)mapScrollView).bounds;
+        [self cancelOffscreenTileDownloadsForBounds:mapScrollViewBounds];
+        
         UIGraphicsPushContext(context);
         UIImage *tileImage = nil;
 
@@ -232,21 +244,27 @@
                     tileImage = [[_mapView tileCache] cachedImage:RMTileMake(x, y, zoom) withCacheKey:[_tileSource uniqueTilecacheKey]];
                 }
 
-                if (!tileImage)
+                if (!tileImage)   // image was not in cache - fire off an asynchronous retrieval
                 {
-                    // image was not in cache - fire off an asynchronous retrieval
+                    // Determine the bounds of the tile being rendered, in the coordinate
+                    // system of the map scroll view content. The will be used later to
+                    // determine if this tile download request can be cancelled.
+                    CGRect tileBoundsInScrollView = [mapScrollView convertRect:rect fromView:self];
+
                     RMTileDownloadOperation *downloadOperation = [[RMTileDownloadOperation alloc] initWithTile:RMTileMake(x, y, zoom)
                                                                                                  forTileSource:_tileSource
                                                                                                     usingCache:_mapView.tileCache
+                                                                                            boundsInScrollView:tileBoundsInScrollView
                                                                                                     retryCount:((RMAbstractWebMapSource *)_tileSource).retryCount
                                                                                                        timeout:((RMAbstractWebMapSource *)_tileSource).requestTimeoutSeconds];
                     downloadOperation.completionBlock = ^{
                         dispatch_async(dispatch_get_main_queue(), ^(void) {
-                            // Tell the layer to draw itself again for this rect, which will now use the newly downloaded tile from the cache
+                            // Tell the layer to draw itself again for this rect, which will now use the newly downloaded tile from the cache.
                             [self.layer setNeedsDisplayInRect:rect];
                         });
                     };
-                    [self.tileDownloadStack addOperation:downloadOperation];
+
+                    [self.tileDownloadQueue addOperation:downloadOperation];
                 }
             }
         }
