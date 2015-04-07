@@ -102,7 +102,7 @@ boundsInScrollView:(CGRect)bounds
             {
                 break;
             } else if (response.statusCode == HTTP_204_NO_CONTENT) { // Return default tile image in case HTTP 204 is found
-                image = [(RMAbstractWebMapSource *)self.tileSource defaultImageForZoomLevel:self.tile.zoom];
+                self.image = [(RMAbstractWebMapSource *)self.tileSource defaultImageForZoomLevel:self.tile.zoom];
             }
 
             if (!self.image || error != nil)
