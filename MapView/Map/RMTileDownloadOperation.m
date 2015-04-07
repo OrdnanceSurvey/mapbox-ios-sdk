@@ -30,6 +30,7 @@
 - (id)initWithTile:(RMTile)tile
      forTileSource:(id<RMTileSource>)source
         usingCache:(RMTileCache *)cache
+boundsInScrollView:(CGRect)bounds
         retryCount:(NSUInteger)retryCount
            timeout:(NSTimeInterval)timeout
 {
@@ -41,6 +42,7 @@
         _tileCache = cache;
         _requestTimeoutSeconds = timeout;
         _retryCount = retryCount;
+        _boundsInScrollViewContent = bounds;
     }
     return self;
 }
