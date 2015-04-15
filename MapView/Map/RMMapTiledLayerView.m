@@ -49,7 +49,8 @@
 
 @end
 
-@implementation RMMapTiledLayerView {
+@implementation RMMapTiledLayerView
+{
     __weak RMMapView *_mapView;
     id<RMTileSource> _tileSource;
 }
