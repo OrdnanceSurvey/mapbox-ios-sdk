@@ -88,8 +88,9 @@ boundsInScrollView:(CGRect)bounds
 
     if (!tileURL)
     {
-        return;
-    } else {
+        [self cancel];
+    }
+    else {
         for (NSUInteger try = 0; image == nil && try < self.retryCount; ++try)
         {
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:tileURL];
@@ -131,5 +132,28 @@ boundsInScrollView:(CGRect)bounds
         }
     }
 }
+
+- (BOOL)isEqual:(id)other
+{
+    RMTileDownloadOperation *otherOperation = (RMTileDownloadOperation *)other;
+    if (other == self) {
+        return YES;
+    }
+    else if(self.tile.x == otherOperation.tile.x \
+           && self.tile.y == otherOperation.tile.y \
+           && self.tile.zoom == otherOperation.tile.zoom \
+           && [self.tileSource isEqual:otherOperation.tileSource]) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
+- (NSUInteger)hash
+{
+    return self.tile.x ^ self.tile.y ^ self.tile.zoom ^ self.tileSource.hash;
+}
+
 
 @end

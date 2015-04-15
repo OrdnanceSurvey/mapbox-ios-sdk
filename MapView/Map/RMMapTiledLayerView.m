@@ -108,9 +108,12 @@
     self.contentScaleFactor = 1.0f;
 }
 
-- (void)cancelOffscreenTileDownloadsForBounds:(CGRect)bounds {
-    for (RMTileDownloadOperation *operation in self.tileDownloadQueue.operations) {
-        if(!CGRectIntersectsRect(operation.boundsInScrollViewContent, bounds)) {
+- (void)cancelOffscreenTileDownloadsForBounds:(CGRect)bounds
+{
+    for (RMTileDownloadOperation *operation in self.tileDownloadQueue.operations)
+    {
+        if (!CGRectIntersectsRect(operation.boundsInScrollViewContent, bounds))
+        {
             [operation cancel];
         }
     }
@@ -141,7 +144,15 @@
                 for (int y = y1; y <= y2; ++y)
                 {
                     RMTile tile = RMTileMake(x, y, zoom);
-                    UIImage *tileImage = [_tileSource cachedImageForTile:tile inCache:[_mapView tileCache]];
+
+                    UIImage *tileImage;
+
+                    if ([_tileSource isKindOfClass:[RMAbstractWebMapSource class]])
+                    {
+                        tileImage = [_tileSource cachedImageForTile:tile inCache:[_mapView tileCache]];
+                    } else {
+                        tileImage = [_tileSource imageForTile:tile inCache:[_mapView tileCache]];
+                    }
 
                     // If this tile's image is not present, try to obtain lower resolution tiles from higher zoom levels instead.
                     if (!tileImage)
@@ -149,9 +160,7 @@
                         if (_mapView.missingTilesDepth == 0)
                         {
                             tileImage = [RMTileImage errorTile];
-                        }
-                        else
-                        {
+                        } else {
                             NSUInteger currentTileDepth = 1, currentZoom = zoom - currentTileDepth;
 
                             while (!tileImage && currentZoom >= _tileSource.minZoom && currentTileDepth <= _mapView.missingTilesDepth)
@@ -161,8 +170,13 @@
                                 float nextTileX = floor(nextX),
                                       nextTileY = floor(nextY);
 
-                                tileImage = [_tileSource cachedImageForTile:RMTileMake((int)nextTileX, (int)nextTileY, currentZoom)
-                                                                    inCache:[_mapView tileCache]];
+                                if ([_tileSource isKindOfClass:[RMAbstractWebMapSource class]])
+                                {
+                                    tileImage = [_tileSource cachedImageForTile:RMTileMake((int)nextTileX, (int)nextTileY, currentZoom)
+                                                                        inCache:[_mapView tileCache]];
+                                } else {
+                                    tileImage = [_tileSource imageForTile:RMTileMake((int)nextTileX, (int)nextTileY, currentZoom) inCache:[_mapView tileCache]];
+                                }
 
                                 if (IS_VALID_TILE_IMAGE(tileImage))
                                 {
@@ -257,14 +271,23 @@
                                                                                             boundsInScrollView:tileBoundsInScrollView
                                                                                                     retryCount:((RMAbstractWebMapSource *)_tileSource).retryCount
                                                                                                        timeout:((RMAbstractWebMapSource *)_tileSource).requestTimeoutSeconds];
-                    downloadOperation.completionBlock = ^{
-                        dispatch_async(dispatch_get_main_queue(), ^(void) {
-                            // Tell the layer to draw itself again for this rect, which will now use the newly downloaded tile from the cache.
-                            [self.layer setNeedsDisplayInRect:rect];
-                        });
-                    };
+                    
+                    if (![self.tileDownloadQueue.operations containsObject:downloadOperation])
+                    {
+                        __weak RMTileDownloadOperation *weakDownloadOperation = downloadOperation;
+                        downloadOperation.completionBlock = ^{
+                            __strong RMTileDownloadOperation *strongDownloadOperation = weakDownloadOperation;
+                            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                if (!strongDownloadOperation.cancelled)
+                                {
+                                    // Tell the layer to draw itself again for this rect, which will now use the newly downloaded tile from the cache.
+                                    [self.layer setNeedsDisplayInRect:rect];
+                                }
+                            });
+                        };
 
-                    [self.tileDownloadQueue addOperation:downloadOperation];
+                        [self.tileDownloadQueue addOperations:@[downloadOperation] waitUntilFinished:YES];
+                    }
                 }
             }
         }
@@ -280,15 +303,14 @@
                 NSUInteger currentTileDepth = 1, currentZoom = zoom - currentTileDepth;
 
                 // tries to return lower zoom level tiles if a tile cannot be found
-                while (!tileImage && currentZoom >= _tileSource.minZoom && currentTileDepth <= _mapView.missingTilesDepth)
-                {
+                while (!tileImage && currentZoom >= _tileSource.minZoom && currentTileDepth <= _mapView.missingTilesDepth) {
                     float nextX = x / powf(2.0, (float)currentTileDepth),
                           nextY = y / powf(2.0, (float)currentTileDepth);
                     float nextTileX = floor(nextX),
                           nextTileY = floor(nextY);
 
                     RMTile lowerResolutionTile = RMTileMake((int)nextTileX, (int)nextTileY, currentZoom);
-                    tileImage = [_tileSource cachedImageForTile:lowerResolutionTile inCache:[_mapView tileCache]];
+                    tileImage = [_tileSource imageForTile:lowerResolutionTile inCache:[_mapView tileCache]];
 
                     if (IS_VALID_TILE_IMAGE(tileImage))
                     {
