@@ -88,8 +88,9 @@ boundsInScrollView:(CGRect)bounds
 
     if (!tileURL)
     {
-        return;
-    } else {
+        [self cancel];
+    }
+    else {
         for (NSUInteger try = 0; image == nil && try < self.retryCount; ++try)
         {
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:tileURL];
