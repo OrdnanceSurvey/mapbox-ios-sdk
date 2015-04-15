@@ -238,23 +238,19 @@
                                                                                                     retryCount:((RMAbstractWebMapSource *)_tileSource).retryCount
                                                                                                        timeout:((RMAbstractWebMapSource *)_tileSource).requestTimeoutSeconds];
                     
-                    if(![self.tileDownloadQueue.operations containsObject:downloadOperation]) {
+                    if (![self.tileDownloadQueue.operations containsObject:downloadOperation]) {
                         __weak RMTileDownloadOperation *weakDownloadOperation = downloadOperation;
                         downloadOperation.completionBlock = ^{
+                            __strong RMTileDownloadOperation *strongDownloadOperation = weakDownloadOperation;
                             dispatch_async(dispatch_get_main_queue(), ^(void) {
-                                __strong RMTileDownloadOperation *strongDownloadOperation = weakDownloadOperation;
-                                if(!strongDownloadOperation.cancelled) {
+                                if (!strongDownloadOperation.cancelled) {
                                     // Tell the layer to draw itself again for this rect, which will now use the newly downloaded tile from the cache.
                                     [self.layer setNeedsDisplayInRect:rect];
-                                } else {
-                                    NSLog(@"Operation cancelled. %lud remain in queue", (unsigned long)self.tileDownloadQueue.operationCount);
                                 }
                             });
                         };
 
                         [self.tileDownloadQueue addOperations:@[downloadOperation] waitUntilFinished:YES];
-                    } else {
-                        NSLog(@"dupe tile requested:");
                     }
                 }
             }
