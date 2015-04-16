@@ -33,7 +33,7 @@
 
 @interface RMTileCacheDownloadOperation : NSOperation
 
-- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(RMTileCache *)cache;
+- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(id<RMTileCache>)cache;
 
 @property (nonatomic, strong) NSError *error;
 
