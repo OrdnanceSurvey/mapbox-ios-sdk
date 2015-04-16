@@ -33,10 +33,10 @@
 {
     RMTile _tile;
     __weak id <RMTileSource>_source;
-    __weak RMTileCache *_cache;
+    id<RMTileCache> _cache;
 }
 
-- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(RMTileCache *)cache
+- (id)initWithTile:(RMTile)tile forTileSource:(id <RMTileSource>)source usingCache:(id<RMTileCache>)cache
 {
     if (!(self = [super init]))
         return nil;

@@ -325,6 +325,11 @@
 
 - (void)beginBackgroundCacheForTileSource:(id <RMTileSource>)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom
 {
+    [self beginBackgroundCacheToCache:self forTileSource:tileSource southWest:southWest northEast:northEast minZoom:minZoom maxZoom:maxZoom];
+}
+
+- (void)beginBackgroundCacheToCache:(id<RMTileCache>)cache forTileSource:(id<RMTileSource>)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom
+{
     if (self.isBackgroundCaching)
         return;
 
@@ -374,7 +379,7 @@
             {
                 RMTileCacheDownloadOperation *operation = [[RMTileCacheDownloadOperation alloc] initWithTile:RMTileMake((uint32_t)x, (uint32_t)y, zoom)
                                                                                                 forTileSource:_activeTileSource
-                                                                                                   usingCache:self];
+                                                                                                   usingCache:cache];
 
                 __weak RMTileCacheDownloadOperation *internalOperation = operation;
                 __weak RMTileCache *weakSelf = self;
@@ -421,6 +426,16 @@
             }
         }
     }
+}
+
+- (id<RMTileCache>)databaseCacheAtPath:(NSString *)cachePath
+{
+    RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] initWithDatabase:cachePath];
+    [dbCache setCapacity:LONG_MAX];
+    [dbCache setPurgeStrategy:RMCachePurgeStrategyFIFO];
+    [dbCache setMinimalPurge:0];
+    
+    return dbCache;
 }
 
 - (void)cancelBackgroundCache
