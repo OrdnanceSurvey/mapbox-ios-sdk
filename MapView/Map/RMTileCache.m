@@ -428,6 +428,16 @@
     }
 }
 
+- (id<RMTileCache>)databaseCacheAtPath:(NSString *)cachePath
+{
+    RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] initWithDatabase:cachePath];
+    [dbCache setCapacity:0];
+    [dbCache setPurgeStrategy:RMCachePurgeStrategyFIFO];
+    [dbCache setMinimalPurge:0];
+    
+    return dbCache;
+}
+
 - (void)cancelBackgroundCache
 {
     __weak NSOperationQueue *weakBackgroundFetchQueue = _backgroundFetchQueue;

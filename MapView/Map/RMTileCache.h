@@ -204,4 +204,13 @@ typedef enum : short {
 *   @return The number of tiles representing the coverage area. */
 - (NSUInteger)tileCountForSouthWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom;
 
+/**
+ *  If a cache exists at the specified path, returns it, else creates a new one
+ *
+ *  @param cachePath The path to save the cache at
+ *
+ *  @return An initialised cache
+ */
+- (id<RMTileCache>)databaseCacheAtPath:(NSString *)cachePath;
+
 @end
