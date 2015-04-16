@@ -431,7 +431,7 @@
 - (id<RMTileCache>)databaseCacheAtPath:(NSString *)cachePath
 {
     RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] initWithDatabase:cachePath];
-    [dbCache setCapacity:0];
+    [dbCache setCapacity:LONG_MAX];
     [dbCache setPurgeStrategy:RMCachePurgeStrategyFIFO];
     [dbCache setMinimalPurge:0];
     
