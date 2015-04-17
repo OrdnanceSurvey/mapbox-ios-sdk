@@ -171,6 +171,11 @@ typedef enum : short {
 /** Whether or not the tile cache is currently background caching. */
 @property (nonatomic, readonly, assign) BOOL isBackgroundCaching;
 
+/**
+ *  Whether or not the tile cache has a paused download
+ */
+@property (nonatomic, readonly, assign) BOOL backgroundCachingPaused;
+
 /** Tells the tile cache to begin background caching. Progress during the caching operation can be observed by implementing the RMTileCacheBackgroundDelegate protocol.
 *   @param tileSource The tile source from which to retrieve tiles.
 *   @param southWest The southwest corner of the geographic area to cache.
@@ -190,6 +195,16 @@ typedef enum : short {
  *  @param maxZoom    The maximum zoom level to cache.
  */
 - (void)beginBackgroundCacheForTileSource:(id<RMTileSource>)tileSource usingCache:(id<RMTileCache>)cache southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom;
+
+/**
+ *  Suspends the background cache queue
+ */
+- (void)pauseBackgroundCache;
+
+/**
+ *  Resumes the background cache queue
+ */
+- (void)resumeBackgroundCache;
 
 /** Cancel any background caching. 
 *

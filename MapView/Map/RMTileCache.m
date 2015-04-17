@@ -428,16 +428,6 @@
     }
 }
 
-- (id<RMTileCache>)databaseCacheAtPath:(NSString *)cachePath
-{
-    RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] initWithDatabase:cachePath];
-    [dbCache setCapacity:LONG_MAX];
-    [dbCache setPurgeStrategy:RMCachePurgeStrategyFIFO];
-    [dbCache setMinimalPurge:0];
-    
-    return dbCache;
-}
-
 - (void)cancelBackgroundCache
 {
     __weak NSOperationQueue *weakBackgroundFetchQueue = _backgroundFetchQueue;
@@ -459,6 +449,32 @@
             }
         });
     });
+}
+
+- (void)pauseBackgroundCache
+{
+    if (!_backgroundFetchQueue.suspended)
+    {
+        _backgroundFetchQueue.suspended = YES;
+    }
+}
+
+- (void)resumeBackgroundCache
+{
+    if (_backgroundFetchQueue.suspended)
+    {
+        _backgroundFetchQueue.suspended = NO;
+    }
+}
+
+- (id<RMTileCache>)databaseCacheAtPath:(NSString *)cachePath
+{
+    RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] initWithDatabase:cachePath];
+    [dbCache setCapacity:LONG_MAX];
+    [dbCache setPurgeStrategy:RMCachePurgeStrategyFIFO];
+    [dbCache setMinimalPurge:0];
+    
+    return dbCache;
 }
 
 @end
