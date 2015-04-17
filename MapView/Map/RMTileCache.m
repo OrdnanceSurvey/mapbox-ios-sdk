@@ -325,10 +325,10 @@
 
 - (void)beginBackgroundCacheForTileSource:(id <RMTileSource>)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom
 {
-    [self beginBackgroundCacheToCache:self forTileSource:tileSource southWest:southWest northEast:northEast minZoom:minZoom maxZoom:maxZoom];
+    [self beginBackgroundCacheForTileSource:tileSource usingCache:self southWest:southWest northEast:northEast minZoom:minZoom maxZoom:maxZoom];
 }
 
-- (void)beginBackgroundCacheToCache:(id<RMTileCache>)cache forTileSource:(id<RMTileSource>)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom
+- (void)beginBackgroundCacheForTileSource:(id<RMTileSource>)tileSource usingCache:(id<RMTileCache>)cache southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom
 {
     if (self.isBackgroundCaching)
         return;

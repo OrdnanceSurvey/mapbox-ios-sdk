@@ -182,14 +182,14 @@ typedef enum : short {
 /**
  *  As above but allows the caller to specify which cache to add the tiles to
  *
- *  @param cache      The cache to persist the tiles to
  *  @param tileSource The tile source from which to retrieve tiles.
+ *  @param cache      The cache to persist the tiles to
  *  @param southWest  The southwest corner of the geographic area to cache.
  *  @param northEast  The northeast corner of the geographic area to cache.
  *  @param minZoom    The minimum zoom level to cache.
  *  @param maxZoom    The maximum zoom level to cache.
  */
-- (void)beginBackgroundCacheToCache:(id<RMTileCache>)cache forTileSource:(id<RMTileSource>)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom;
+- (void)beginBackgroundCacheForTileSource:(id<RMTileSource>)tileSource usingCache:(id<RMTileCache>)cache southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom;
 
 /** Cancel any background caching. 
 *
