@@ -467,6 +467,11 @@
     }
 }
 
+- (BOOL)backgroundCachingPaused
+{
+    return _backgroundFetchQueue.suspended;
+}
+
 - (id<RMTileCache>)databaseCacheAtPath:(NSString *)cachePath
 {
     RMDatabaseCache *dbCache = [[RMDatabaseCache alloc] initWithDatabase:cachePath];
