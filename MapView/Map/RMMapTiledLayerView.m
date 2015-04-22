@@ -286,7 +286,7 @@
                             });
                         };
 
-                        [self.tileDownloadQueue addOperations:@[downloadOperation] waitUntilFinished:YES];
+                        [self.tileDownloadQueue addOperation:downloadOperation];
                     }
                 }
             }
