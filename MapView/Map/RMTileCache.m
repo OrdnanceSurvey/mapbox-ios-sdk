@@ -435,11 +435,11 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
     {
-        dispatch_sync(dispatch_get_main_queue(), ^(void)
+        [weakBackgroundFetchQueue cancelAllOperations];
+        [weakSelf resumeBackgroundCache]; // Resume the queue to allow all operations to cancel themselves properly
+        [weakBackgroundFetchQueue waitUntilAllOperationsAreFinished];
+        dispatch_async(dispatch_get_main_queue(), ^(void)
         {
-            [weakBackgroundFetchQueue cancelAllOperations];
-            [weakBackgroundFetchQueue waitUntilAllOperationsAreFinished];
-
             if ([weakSelf markCachingComplete])
             {
                 if ([_backgroundCacheDelegate respondsToSelector:@selector(tileCacheDidCancelBackgroundCache:)])
