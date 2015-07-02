@@ -132,6 +132,7 @@
     BOOL _delegateHasAfterMapMove;
     BOOL _delegateHasBeforeMapZoom;
     BOOL _delegateHasAfterMapZoom;
+    BOOL _delegateHasDidChangeZoomLevel;
     BOOL _delegateHasMapViewRegionDidChange;
     BOOL _delegateHasDoubleTapOnMap;
     BOOL _delegateHasSingleTapOnMap;
@@ -692,6 +693,7 @@
 
     _delegateHasBeforeMapZoom = [_delegate respondsToSelector:@selector(beforeMapZoom:byUser:)];
     _delegateHasAfterMapZoom  = [_delegate respondsToSelector:@selector(afterMapZoom:byUser:)];
+    _delegateHasDidChangeZoomLevel = [_delegate respondsToSelector:@selector(mapView:didChangeZoomLevel:)];
 
     _delegateHasMapViewRegionDidChange = [_delegate respondsToSelector:@selector(mapViewRegionDidChange:)];
 
@@ -1505,6 +1507,10 @@
 
     if (_zoom < 3 && self.userTrackingMode == RMUserTrackingModeFollowWithHeading)
         self.userTrackingMode = RMUserTrackingModeFollow;
+    
+    if (_delegateHasDidChangeZoomLevel) {
+        [self.delegate mapView:self didChangeZoomLevel:self.zoom];
+    }
 }
 
 // Detect dragging/zooming
