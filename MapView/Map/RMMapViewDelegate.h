@@ -137,6 +137,14 @@ typedef enum : NSUInteger {
 *   @param wasUserAction A Boolean indicating whether the map zoom was in response to a user action or not. */
 - (void)afterMapZoom:(RMMapView *)map byUser:(BOOL)wasUserAction;
 
+/**
+ *  Tells the delegate that a map has changed its zoom level
+ *
+ *  @param mapView The map view that has changed its zoom level
+ *  @param zoom    The new zoom level
+ */
+- (void)mapView:(RMMapView *)mapView didChangeZoomLevel:(float)zoom;
+
 /** Tells the delegate that the region displayed by the map view just changed. 
 *
 *   This method is called whenever the currently displayed map region changes. During scrolling, this method may be called many times to report updates to the map position. Therefore, your implementation of this method should be as lightweight as possible to avoid affecting scrolling performance.
