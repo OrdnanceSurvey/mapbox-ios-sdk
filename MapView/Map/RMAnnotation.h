@@ -89,6 +89,9 @@
 @property (nonatomic, assign) RMProjectedRect  projectedBoundingBox;
 @property (nonatomic, assign) BOOL hasBoundingBox;
 
+/** Should this annotation ignore touches and let them pass through to mapview? Defauls value is NO. */
+@property (nonatomic, assign) BOOL ignoresTouches;
+
 /** Whether touch events for the annotation's layer are recognized. Defaults to `YES`. */
 @property (nonatomic, assign, getter=isEnabled) BOOL enabled;
 

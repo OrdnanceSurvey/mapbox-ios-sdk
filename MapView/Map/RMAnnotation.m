@@ -85,6 +85,7 @@
     self.badgeIcon         = nil;
     self.anchorPoint       = CGPointZero;
     self.hasBoundingBox    = NO;
+    self.ignoresTouches    = NO;
     self.enabled           = YES;
     self.clusteringEnabled = YES;
 

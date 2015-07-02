@@ -1891,10 +1891,10 @@
 
 - (void)tapOnAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
 {
-    if (anAnnotation.isEnabled && ! [anAnnotation isEqual:_currentAnnotation])
+    if (anAnnotation.isEnabled && ! [anAnnotation isEqual:_currentAnnotation] && !anAnnotation.ignoresTouches)
         [self selectAnnotation:anAnnotation animated:YES];
 
-    if (_delegateHasTapOnAnnotation && anAnnotation)
+    if (_delegateHasTapOnAnnotation && anAnnotation && !anAnnotation.ignoresTouches)
     {
         [_delegate tapOnAnnotation:anAnnotation onMap:self];
     }
@@ -2035,7 +2035,7 @@
 
 - (void)doubleTapOnAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
 {
-    if (_delegateHasDoubleTapOnAnnotation && anAnnotation)
+    if (_delegateHasDoubleTapOnAnnotation && anAnnotation && !anAnnotation.ignoresTouches)
     {
         [_delegate doubleTapOnAnnotation:anAnnotation onMap:self];
     }
@@ -2047,11 +2047,11 @@
 
 - (void)tapOnLabelForAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
 {
-    if (_delegateHasTapOnLabelForAnnotation && anAnnotation)
+    if (_delegateHasTapOnLabelForAnnotation && anAnnotation && !anAnnotation.ignoresTouches)
     {
         [_delegate tapOnLabelForAnnotation:anAnnotation onMap:self];
     }
-    else if (_delegateHasTapOnAnnotation && anAnnotation)
+    else if (_delegateHasTapOnAnnotation && anAnnotation && !anAnnotation.ignoresTouches)
     {
         [_delegate tapOnAnnotation:anAnnotation onMap:self];
     }
@@ -2064,11 +2064,11 @@
 
 - (void)doubleTapOnLabelForAnnotation:(RMAnnotation *)anAnnotation atPoint:(CGPoint)aPoint
 {
-    if (_delegateHasDoubleTapOnLabelForAnnotation && anAnnotation)
+    if (_delegateHasDoubleTapOnLabelForAnnotation && anAnnotation && !anAnnotation.ignoresTouches)
     {
         [_delegate doubleTapOnLabelForAnnotation:anAnnotation onMap:self];
     }
-    else if (_delegateHasDoubleTapOnAnnotation && anAnnotation)
+    else if (_delegateHasDoubleTapOnAnnotation && anAnnotation && !anAnnotation.ignoresTouches)
     {
         [_delegate doubleTapOnAnnotation:anAnnotation onMap:self];
     }
