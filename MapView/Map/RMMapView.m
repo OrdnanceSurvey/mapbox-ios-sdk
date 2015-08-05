@@ -2420,6 +2420,7 @@
     _backgroundView = aView;
 
     _backgroundView.frame = self.bounds;
+    _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     [self insertSubview:_backgroundView atIndex:0];
 }
