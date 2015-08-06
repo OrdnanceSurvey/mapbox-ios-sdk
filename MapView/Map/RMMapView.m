@@ -447,6 +447,15 @@
     }
 }
 
+- (void)setBounds:(CGRect)bounds {
+    RMProjectedPoint centerPoint = self.centerProjectedPoint;
+    CGRect rect = self.bounds;
+    [super setBounds:bounds];
+    if (!CGRectEqualToRect(rect, bounds)) {
+        [self setCenterProjectedPoint:centerPoint animated:NO];
+    }
+}
+
 + (UIImage *)resourceImageNamed:(NSString *)imageName
 {
     if ( ! [[imageName pathExtension] length])
