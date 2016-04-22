@@ -328,6 +328,9 @@
 - (void)didReceiveMemoryWarning
 {
     NSLog(@"*** didReceiveMemoryWarning in %@", [self class]);
+    [queue inDatabase:^(FMDatabase *db) {
+        [db clearCachedStatements];
+    }];
 }
 
 - (NSString *)uniqueTilecacheKey

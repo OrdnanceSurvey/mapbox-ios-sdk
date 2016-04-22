@@ -422,6 +422,10 @@
     [_writeQueueLock lock];
     [_writeQueue cancelAllOperations];
     [_writeQueueLock unlock];
+
+    [_queue inDatabase:^(FMDatabase *db) {
+        [db clearCachedStatements];
+    }];
 }
 
 @end
