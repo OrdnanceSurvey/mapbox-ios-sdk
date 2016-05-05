@@ -34,7 +34,6 @@
 
 @interface RMDatabaseCache ()
 
-- (NSUInteger)count;
 - (NSUInteger)countTiles;
 - (void)touchTile:(RMTile)tile withKey:(NSString *)cacheKey;
 - (void)purgeTiles:(NSUInteger)count;
@@ -48,7 +47,6 @@
     // Database
     FMDatabaseQueue *_queue;
 
-    NSUInteger _tileCount;
     NSOperationQueue *_writeQueue;
     NSRecursiveLock *_writeQueueLock;
 
@@ -128,8 +126,6 @@
     }];
 
 	[self configureDBForFirstUse];
-
-    _tileCount = [self countTiles];
 
 	return self;	
 }
@@ -232,8 +228,6 @@
              }];
 
             [_writeQueueLock unlock];
-
-            _tileCount = [self countTiles];
         }
     }
 
@@ -256,7 +250,7 @@
 {
     if (_capacity != 0)
     {
-        NSUInteger tilesInDb = [self count];
+        NSUInteger tilesInDb = [self countTiles];
 
         if (_capacity <= tilesInDb && _expiryPeriod == 0)
             [self purgeTiles:MAX(_minimalPurge, 1+tilesInDb-_capacity)];
@@ -283,27 +277,19 @@
 
             [_writeQueueLock lock];
 
-            [_queue inDatabase:^(FMDatabase *db)
-             {
-                 result = [db executeUpdate:@"INSERT OR IGNORE INTO ZCACHE (tile_hash, cache_key, last_used, data) VALUES (?, ?, ?, ?)", [RMTileCache tileHash:tile], aCacheKey, [NSDate date], data];
-             }];
-
-            [_writeQueueLock unlock];
+            [_queue inDatabase:^(FMDatabase *db) {
+                result = [db executeUpdate:@"INSERT OR IGNORE INTO ZCACHE (tile_hash, cache_key, last_used, data) VALUES (?, ?, ?, ?)", [RMTileCache tileHash:tile], aCacheKey, [NSDate date], data];
+            }];
 
             if (result == NO)
                 RMLog(@"Error occured adding data");
-            else
-                _tileCount++;
+
+            [_writeQueueLock unlock];
         }];
 	}
 }
 
 #pragma mark -
-
-- (NSUInteger)count
-{
-    return _tileCount;
-}
 
 - (NSUInteger)countTiles
 {
@@ -346,8 +332,6 @@
      }];
 
     [_writeQueueLock unlock];
-
-    _tileCount = [self countTiles];
 }
 
 - (void)removeAllCachedImages 
@@ -369,8 +353,6 @@
          }];
 
         [_writeQueueLock unlock];
-
-        _tileCount = [self countTiles];
     }];
 }
 
@@ -393,8 +375,6 @@
          }];
 
         [_writeQueueLock unlock];
-
-        _tileCount = [self countTiles];
     }];
 }
 

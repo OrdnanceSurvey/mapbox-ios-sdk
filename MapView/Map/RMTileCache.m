@@ -567,7 +567,7 @@ static NSMutableDictionary *predicateValues = nil;
 - (id <RMTileCache>)databaseCacheWithConfig:(NSDictionary *)cfg
 {
     BOOL useCacheDir = NO;
-    RMCachePurgeStrategy strategy = RMCachePurgeStrategyFIFO;
+    RMCachePurgeStrategy strategy = RMCachePurgeStrategyLRU;
 
     NSUInteger capacity = 1000;
     NSUInteger minimalPurge = capacity / 10;
@@ -638,10 +638,6 @@ static NSMutableDictionary *predicateValues = nil;
         if ([strategyStr caseInsensitiveCompare:@"FIFO"] == NSOrderedSame) strategy = RMCachePurgeStrategyFIFO;
         if ([strategyStr caseInsensitiveCompare:@"LRU"] == NSOrderedSame) strategy = RMCachePurgeStrategyLRU;
     }
-    else
-    {
-        strategyStr = @"FIFO";
-    }
 
     if (useCacheDirNumber != nil)
         useCacheDir = [useCacheDirNumber boolValue];
@@ -650,7 +646,7 @@ static NSMutableDictionary *predicateValues = nil;
     {
         NSUInteger value = [minimalPurgeNumber unsignedIntValue];
 
-        if (value > 0 && value<=capacity)
+        if (value > 0 && value <= capacity)
             minimalPurge = value;
         else
             RMLog(@"minimalPurge must be at least one and at most the cache capacity");
