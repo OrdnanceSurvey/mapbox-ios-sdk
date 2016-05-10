@@ -380,19 +380,17 @@
 
 - (void)touchTile:(RMTile)tile withKey:(NSString *)cacheKey
 {
-    [_writeQueue addOperationWithBlock:^{
-        [_writeQueueLock lock];
+    [_writeQueueLock lock];
 
-        [_queue inDatabase:^(FMDatabase *db)
-         {
-             BOOL result = [db executeUpdate:@"UPDATE ZCACHE SET last_used = ? WHERE tile_hash = ? AND cache_key = ?", [NSDate date], [RMTileCache tileHash:tile], cacheKey];
+    [_queue inDatabase:^(FMDatabase *db)
+     {
+         BOOL result = [db executeUpdate:@"UPDATE ZCACHE SET last_used = ? WHERE tile_hash = ? AND cache_key = ?", [NSDate date], [RMTileCache tileHash:tile], cacheKey];
 
-             if (result == NO)
-                 RMLog(@"Error touching tile");
-         }];
+         if (result == NO)
+             RMLog(@"Error touching tile");
+     }];
 
-        [_writeQueueLock unlock];
-    }];
+    [_writeQueueLock unlock];
 }
 
 - (void)didReceiveMemoryWarning
