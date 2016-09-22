@@ -10,7 +10,7 @@
 
 @implementation NSURLSession (RMUserAgent)
 
-static int64_t semaphoreTimeout = (int64_t)(2 * 60 * NSEC_PER_SEC); // 2 minutes
+static int64_t semaphoreExtraTimeout = 10;
 
 + (NSData *)rm_fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error
 {
@@ -33,6 +33,7 @@ static int64_t semaphoreTimeout = (int64_t)(2 * 60 * NSEC_PER_SEC); // 2 minutes
                               }];
     [task resume];
 
+    int64_t semaphoreTimeout = (int64_t)((request.timeoutInterval + semaphoreExtraTimeout) * NSEC_PER_SEC);
     dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, semaphoreTimeout));
 
     if (blockError && error)
