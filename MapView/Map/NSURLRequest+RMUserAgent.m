@@ -11,7 +11,7 @@
 
 @implementation NSMutableURLRequest (RMUserAgent)
 
-- (void)appendHeaderAgentValue
+- (void)rm_appendHeaderAgentValue
 {
     [self setValue:[[RMConfiguration sharedInstance] userAgent] forHTTPHeaderField:@"User-Agent"];
 }
@@ -20,18 +20,18 @@
 
 @implementation NSURLRequest (RMUserAgent)
 
-+ (instancetype)requestWithHeaderForURL:(NSURL *)url
++ (instancetype)rm_requestWithHeaderForURL:(NSURL *)url
 {
     NSMutableURLRequest *mRequest = [NSMutableURLRequest requestWithURL:url];
-    [mRequest appendHeaderAgentValue];
+    [mRequest rm_appendHeaderAgentValue];
 
     return [mRequest copy];
 }
 
-+ (instancetype)requestWithHeaderForURL:(NSURL *)url cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval
++ (instancetype)rm_requestWithHeaderForURL:(NSURL *)url cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval
 {
     NSMutableURLRequest *mRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
-    [mRequest appendHeaderAgentValue];
+    [mRequest rm_appendHeaderAgentValue];
 
     return [mRequest copy];
 }

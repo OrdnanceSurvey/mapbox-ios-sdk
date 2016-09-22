@@ -155,7 +155,7 @@
                     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:currentURL];
                     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
                     [request setTimeoutInterval:(self.requestTimeoutSeconds / (CGFloat)self.retryCount)];
-                    tileData = [NSURLSession fetchDataSynchronouslyWithRequest:request error:nil];
+                    tileData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:request error:nil];
                 }
 
                 if (tileData)
@@ -208,7 +208,7 @@
             [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
             [request setTimeoutInterval:(self.requestTimeoutSeconds / (CGFloat)self.retryCount)];
             NSError *error;
-            NSData *fetchedData = [NSURLSession fetchDataSynchronouslyWithRequest:request error:&error response:&urlResponse];
+            NSData *fetchedData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:request error:&error response:&urlResponse];
             image = [UIImage imageWithData:fetchedData];
             NSHTTPURLResponse *response = [urlResponse isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)urlResponse : nil;
 

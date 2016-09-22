@@ -160,7 +160,7 @@
     if ((image = [UIImage imageWithData:[NSData dataWithContentsOfFile:cachePath] scale:(useRetina ? 2.0 : 1.0)]) && image)
         return [self initWithUIImage:image];
 
-    NSData *fetchedData = [NSURLSession fetchDataSynchronouslyWithRequest:[NSURLRequest requestWithHeaderForURL:imageURL] error:nil];
+    NSData *fetchedData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:[NSURLRequest rm_requestWithHeaderForURL:imageURL] error:nil];
     if (fetchedData)
     {
         [[NSFileManager defaultManager] createFileAtPath:cachePath contents:fetchedData attributes:nil];

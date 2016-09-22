@@ -554,7 +554,7 @@ RMTilePoint RMInteractiveSourceNormalizedTilePointForMapView(CGPoint point, RMMa
 
         // get the data for this tile
         NSURL *gridUrl = [NSURL URLWithString:gridURLString]; NSError *error;
-        NSData *gridData = [NSURLSession fetchDataSynchronouslyWithRequest:[NSURLRequest requestWithHeaderForURL:gridUrl] error:&error];
+        NSData *gridData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:[NSURLRequest rm_requestWithHeaderForURL:gridUrl] error:&error];
         
         if (gridData && !error)
         {

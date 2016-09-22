@@ -99,7 +99,7 @@ boundsInScrollView:(CGRect)bounds
             request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
             NSError *error = nil;
             NSURLResponse *urlResponse = nil;
-            NSData *fetchedData = [NSURLSession fetchDataSynchronouslyWithRequest:request error:&error response:&urlResponse];
+            NSData *fetchedData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:request error:&error response:&urlResponse];
             NSHTTPURLResponse *response = [urlResponse isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)urlResponse : nil;
             self.response = response;
             self.image = [UIImage imageWithData:fetchedData];

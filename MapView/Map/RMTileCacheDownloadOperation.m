@@ -69,7 +69,7 @@
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:tileURL];
         request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
         NSError *error;
-        NSData *data = [NSURLSession fetchDataSynchronouslyWithRequest:request error:&error];
+        NSData *data = [NSURLSession rm_fetchDataSynchronouslyWithRequest:request error:&error];
 
         if (!data || error != nil)
         {

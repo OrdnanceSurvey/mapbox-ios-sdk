@@ -12,12 +12,12 @@
 
 static int64_t semaphoreTimeout = (int64_t)(2 * 60 * NSEC_PER_SEC); // 2 minutes
 
-+ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error
++ (NSData *)rm_fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error
 {
-    return [self fetchDataSynchronouslyWithRequest:request error:error response:nil];
+    return [self rm_fetchDataSynchronouslyWithRequest:request error:error response:nil];
 }
 
-+ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error response:(NSURLResponse **)response
++ (NSData *)rm_fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error response:(NSURLResponse **)response
 {
     __block NSData *blockData;
     __block NSError *blockError;

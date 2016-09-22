@@ -10,7 +10,7 @@
 
 @interface NSURLRequest (RMUserAgent)
 
-+ (instancetype)requestWithHeaderForURL:(NSURL *)url;
-+ (instancetype)requestWithHeaderForURL:(NSURL *)url cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval;
++ (instancetype)rm_requestWithHeaderForURL:(NSURL *)url;
++ (instancetype)rm_requestWithHeaderForURL:(NSURL *)url cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval;
 
 @end

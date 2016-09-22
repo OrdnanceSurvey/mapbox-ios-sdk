@@ -100,7 +100,7 @@
                 {
                     NSError *error; NSMutableString *jsonString;
                     NSURL *dataURL = [NSURL URLWithString:[dataObject objectAtIndex:0]];
-                    NSData *fetchedData = [NSURLSession fetchDataSynchronouslyWithRequest:[NSURLRequest requestWithHeaderForURL:dataURL] error:&error];
+                    NSData *fetchedData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:[NSURLRequest rm_requestWithHeaderForURL:dataURL] error:&error];
                     if (!error && fetchedData) {
                         jsonString = [[NSMutableString alloc] initWithData:fetchedData encoding:NSUTF8StringEncoding];
                     }
@@ -169,7 +169,7 @@
     }
 
     NSError *error; NSString *jsonString;
-    NSData *fetchedData = [NSURLSession fetchDataSynchronouslyWithRequest:[NSURLRequest requestWithHeaderForURL:referenceURL] error:&error];
+    NSData *fetchedData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:[NSURLRequest rm_requestWithHeaderForURL:referenceURL] error:&error];
     if (!error && fetchedData)
     {
         jsonString = [[NSString alloc] initWithData:fetchedData encoding:NSUTF8StringEncoding];
