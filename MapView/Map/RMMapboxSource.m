@@ -168,16 +168,20 @@
 
     NSError *error; NSString *jsonString;
     NSData *fetchedData = [NSURLSession fetchDataSynchronouslyWithRequest:[NSURLRequest requestWithHeaderForURL:referenceURL] error:&error];
-    if (!error && fetchedData) {
+    if (!error && fetchedData)
+    {
         jsonString = [[NSString alloc] initWithData:fetchedData encoding:NSUTF8StringEncoding];
     }
 
-    if (!jsonString && error && [error.domain isEqual:NSURLErrorDomain] && error.code == -1012) {
+    if (!jsonString && error && [error.domain isEqual:NSURLErrorDomain] && error.code == -1012)
+    {
         // OSWarn: This was here previously and I don't know the reasoning behind this weird idea, so I'm leaving it as it was.
 #ifdef DEBUG
         NSAssert(![[jsonString lowercaseString] hasSuffix:@"invalid token\"}"], @"invalid token in use");
 #endif
-    } else if ([referenceURL.pathExtension isEqualToString:@"json"] && jsonString) {
+    }
+    else if ([referenceURL.pathExtension isEqualToString:@"json"] && jsonString)
+    {
         return [self initWithTileJSON:jsonString enablingDataOnMapView:mapView];
     }
 

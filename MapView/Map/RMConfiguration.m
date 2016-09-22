@@ -32,17 +32,20 @@ static int64_t semaphoreTimeout = (int64_t)(2 * 60 * NSEC_PER_SEC); // 2 minutes
 
 @implementation NSURLSession (RMUserAgent)
 
-+ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error {
++ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error
+{
     return [self fetchDataSynchronouslyWithRequest:request error:error response:nil];
 }
 
-+ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error response:(NSURLResponse **)response {
++ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error response:(NSURLResponse **)response
+{
     __block NSData *blockData;
     __block NSError *blockError;
     __block NSURLResponse *blockResponse;
 
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    NSURLSessionTask *task = [NSURLSession.sharedSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *requestError) {
+    NSURLSessionTask *task = [NSURLSession.sharedSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *requestError)
+    {
         blockData = data;
         blockError = requestError;
         blockResponse = response;
@@ -52,10 +55,12 @@ static int64_t semaphoreTimeout = (int64_t)(2 * 60 * NSEC_PER_SEC); // 2 minutes
 
     dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, semaphoreTimeout));
 
-    if (blockError && error) {
+    if (blockError && error)
+    {
         *error = blockError;
     }
-    if (blockResponse && response) {
+    if (blockResponse && response)
+    {
         *response = blockResponse;
     }
 
@@ -66,7 +71,8 @@ static int64_t semaphoreTimeout = (int64_t)(2 * 60 * NSEC_PER_SEC); // 2 minutes
 
 @implementation NSMutableURLRequest (RMUserAgent)
 
-- (void)appendHeaderAgentValue {
+- (void)appendHeaderAgentValue
+{
     [self setValue:[[RMConfiguration sharedInstance] userAgent] forHTTPHeaderField:@"User-Agent"];
 }
 
@@ -74,14 +80,16 @@ static int64_t semaphoreTimeout = (int64_t)(2 * 60 * NSEC_PER_SEC); // 2 minutes
 
 @implementation NSURLRequest (RMUserAgent)
 
-+ (instancetype)requestWithHeaderForURL:(NSURL *)url {
++ (instancetype)requestWithHeaderForURL:(NSURL *)url
+{
     NSMutableURLRequest *mRequest = [NSMutableURLRequest requestWithURL:url];
     [mRequest appendHeaderAgentValue];
 
     return [mRequest copy];
 }
 
-+ (instancetype)requestWithHeaderForURL:(NSURL *)url cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval {
++ (instancetype)requestWithHeaderForURL:(NSURL *)url cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval
+{
     NSMutableURLRequest *mRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
     [mRequest appendHeaderAgentValue];
 

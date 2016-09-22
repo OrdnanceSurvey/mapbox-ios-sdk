@@ -78,7 +78,8 @@
         NSURL *metadataURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://dev.virtualearth.net/REST/v1/Imagery/Metadata/%@?key=%@", imagerySetString, _mapsKey]];
         NSData *metadataData = [NSURLSession fetchDataSynchronouslyWithRequest:[NSURLRequest requestWithHeaderForURL:metadataURL] error:&error];
 
-        if (!metadataData || error) {
+        if (!metadataData || error)
+        {
             return nil;
         }
 

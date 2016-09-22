@@ -210,9 +210,12 @@
             image = [UIImage imageWithData:fetchedData];
             NSHTTPURLResponse *response = [urlResponse isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)urlResponse : nil;
 
-            if (error.code == HTTP_404_NOT_FOUND) {
+            if (error.code == HTTP_404_NOT_FOUND)
+            {
                 break;
-            } else if (response.statusCode == HTTP_204_NO_CONTENT) { // Return default tile image in case HTTP 204 is found
+            }
+            else if (response.statusCode == HTTP_204_NO_CONTENT)
+            { // Return default tile image in case HTTP 204 is found
                 image = self.defaultImagesAtZoomLevels[@(tile.zoom)];
             }
 
