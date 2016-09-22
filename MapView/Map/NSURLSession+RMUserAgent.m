@@ -36,6 +36,12 @@ static int64_t semaphoreExtraTimeout = 10;
     int64_t semaphoreTimeout = (int64_t)((request.timeoutInterval + semaphoreExtraTimeout) * NSEC_PER_SEC);
     dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, semaphoreTimeout));
 
+    // if it happens that the semaphore will quit before the task does stop the task.
+    // such behaviour is unexpected and should not happen, so we can treat it as an error.
+    if (task.state == NSURLSessionTaskStateRunning) {
+        [task cancel];
+    }
+
     if (blockError && error)
     {
         *error = blockError;
