@@ -64,26 +64,16 @@
 
 @end
 
-#pragma mark -
+@interface NSURLRequest (RMUserAgent)
 
-@interface NSURLConnection (RMUserAgent)
-
-+ (NSData *)sendBrandedSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error;
-
-@end
-
-#pragma mark -
-
-@interface NSData (RMUserAgent)
-
-+ (instancetype)brandedDataWithContentsOfURL:(NSURL *)aURL;
++ (instancetype)requestWithHeaderForURL:(NSURL *)url;
++ (instancetype)requestWithHeaderForURL:(NSURL *)url cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval;
 
 @end
 
-#pragma mark -
+@interface NSURLSession (RMUserAgent)
 
-@interface NSString (RMUserAgent)
-
-+ (instancetype)brandedStringWithContentsOfURL:(NSURL *)url encoding:(NSStringEncoding)enc error:(NSError **)error;
++ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error;
++ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error response:(NSURLResponse **)response;
 
 @end

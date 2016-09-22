@@ -157,10 +157,15 @@
     
     if ((image = [UIImage imageWithData:[NSData dataWithContentsOfFile:cachePath] scale:(useRetina ? 2.0 : 1.0)]) && image)
         return [self initWithUIImage:image];
-    
-    [[NSFileManager defaultManager] createFileAtPath:cachePath contents:[NSData brandedDataWithContentsOfURL:imageURL] attributes:nil];
-    
-    return [self initWithUIImage:[UIImage imageWithData:[NSData dataWithContentsOfFile:cachePath] scale:(useRetina ? 2.0 : 1.0)]];
+
+    NSData *fetchedData = [NSURLSession fetchDataSynchronouslyWithRequest:[NSURLRequest requestWithHeaderForURL:imageURL] error:nil];
+    if (fetchedData) {
+        [[NSFileManager defaultManager] createFileAtPath:cachePath contents:fetchedData attributes:nil];
+
+        return [self initWithUIImage:[UIImage imageWithData:[NSData dataWithContentsOfFile:cachePath] scale:(useRetina ? 2.0 : 1.0)]];
+    }
+
+    return nil;
 }
 
 + (void)clearCachedMapboxMarkers

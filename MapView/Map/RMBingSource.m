@@ -74,12 +74,13 @@
         else
             imagerySetString = @"Road";
 
+        NSError *error;
         NSURL *metadataURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://dev.virtualearth.net/REST/v1/Imagery/Metadata/%@?key=%@", imagerySetString, _mapsKey]];
+        NSData *metadataData = [NSURLSession fetchDataSynchronouslyWithRequest:[NSURLRequest requestWithHeaderForURL:metadataURL] error:&error];
 
-        NSData *metadataData = [NSData brandedDataWithContentsOfURL:metadataURL];
-
-        if ( ! metadataData)
+        if (!metadataData || error) {
             return nil;
+        }
 
         id metadata = [NSJSONSerialization JSONObjectWithData:metadataData options:0 error:NULL];
 

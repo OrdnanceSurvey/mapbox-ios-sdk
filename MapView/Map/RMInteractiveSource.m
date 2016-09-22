@@ -551,10 +551,10 @@ RMTilePoint RMInteractiveSourceNormalizedTilePointForMapView(CGPoint point, RMMa
         }
 
         // get the data for this tile
-        //
-        NSData *gridData = [NSData brandedDataWithContentsOfURL:[NSURL URLWithString:gridURLString]];
+        NSURL *gridUrl = [NSURL URLWithString:gridURLString]; NSError *error;
+        NSData *gridData = [NSURLSession fetchDataSynchronouslyWithRequest:[NSURLRequest requestWithHeaderForURL:gridUrl] error:&error];
         
-        if (gridData)
+        if (gridData && !error)
         {
             NSMutableString *gridString = [[NSMutableString alloc] initWithData:gridData encoding:NSUTF8StringEncoding];
             

@@ -96,8 +96,11 @@ boundsInScrollView:(CGRect)bounds
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:tileURL];
             request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
             NSError *error = nil;
-            NSHTTPURLResponse *response = self.response;
-            self.image = [UIImage imageWithData:[NSURLConnection sendBrandedSynchronousRequest:request returningResponse:&response error:&error]];
+            NSURLResponse *urlResponse = nil;
+            NSData *fetchedData = [NSURLSession fetchDataSynchronouslyWithRequest:request error:&error response:&urlResponse];
+            NSHTTPURLResponse *response = [urlResponse isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)urlResponse : nil;
+            self.response = response;
+            self.image = [UIImage imageWithData:fetchedData];
 
             if (response.statusCode == HTTP_404_NOT_FOUND)
             {

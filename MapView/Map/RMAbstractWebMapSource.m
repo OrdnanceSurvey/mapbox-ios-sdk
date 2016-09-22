@@ -153,7 +153,7 @@
                     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:currentURL];
                     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
                     [request setTimeoutInterval:(self.requestTimeoutSeconds / (CGFloat)self.retryCount)];
-                    tileData = [NSURLConnection sendBrandedSynchronousRequest:request returningResponse:nil error:nil];
+                    tileData = [NSURLSession fetchDataSynchronouslyWithRequest:request error:nil];
                 }
 
                 if (tileData)
@@ -201,13 +201,16 @@
     {
         for (NSUInteger try = 0; image == nil && try < self.retryCount; ++try)
         {
-            NSHTTPURLResponse *response = nil;
+            NSURLResponse *urlResponse = nil;
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[URLs objectAtIndex:0]];
             [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
             [request setTimeoutInterval:(self.requestTimeoutSeconds / (CGFloat)self.retryCount)];
-            image = [UIImage imageWithData:[NSURLConnection sendBrandedSynchronousRequest:request returningResponse:&response error:nil]];
+            NSError *error;
+            NSData *fetchedData = [NSURLSession fetchDataSynchronouslyWithRequest:request error:&error response:&urlResponse];
+            image = [UIImage imageWithData:fetchedData];
+            NSHTTPURLResponse *response = [urlResponse isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)urlResponse : nil;
 
-            if (response.statusCode == HTTP_404_NOT_FOUND) {
+            if (error.code == HTTP_404_NOT_FOUND) {
                 break;
             } else if (response.statusCode == HTTP_204_NO_CONTENT) { // Return default tile image in case HTTP 204 is found
                 image = self.defaultImagesAtZoomLevels[@(tile.zoom)];

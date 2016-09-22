@@ -28,58 +28,119 @@
 #import "RMConfiguration.h"
 
 static RMConfiguration *RMConfigurationSharedInstance = nil;
+static int64_t semaphoreTimeout = (int64_t)(2 * 60 * NSEC_PER_SEC); // 2 minutes
 
-@implementation NSURLConnection (RMUserAgent)
+@implementation NSURLSession (RMUserAgent)
 
-+ (NSData *)sendBrandedSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
-{
-    NSMutableURLRequest *newRequest = [NSMutableURLRequest requestWithURL:request.URL
-                                                              cachePolicy:request.cachePolicy
-                                                          timeoutInterval:request.timeoutInterval];
++ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error {
+    return [self fetchDataSynchronouslyWithRequest:request error:error response:nil];
+}
 
-    [newRequest setValue:[[RMConfiguration sharedInstance] userAgent] forHTTPHeaderField:@"User-Agent"];
++ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error response:(NSURLResponse **)response {
+    __block NSData *blockData;
+    __block NSError *blockError;
+    __block NSURLResponse *blockResponse;
 
-    return [NSURLConnection sendSynchronousRequest:newRequest returningResponse:response error:error];
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    NSURLSessionTask *task = [NSURLSession.sharedSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *requestError) {
+        blockData = data;
+        blockError = requestError;
+        blockResponse = response;
+        dispatch_semaphore_signal(semaphore);
+    }];
+    [task resume];
+
+    dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, semaphoreTimeout));
+
+    if (blockError && error) {
+        *error = blockError;
+    }
+    if (blockResponse && response) {
+        *response = blockResponse;
+    }
+
+    return blockData;
 }
 
 @end
 
-#pragma mark -
+@implementation NSMutableURLRequest (RMUserAgent)
 
-@implementation NSData (RMUserAgent)
-
-+ (instancetype)brandedDataWithContentsOfURL:(NSURL *)aURL
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aURL];
-
-    [request setValue:[[RMConfiguration sharedInstance] userAgent] forHTTPHeaderField:@"User-Agent"];
-
-    return [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+- (void)appendHeaderAgentValue {
+    [self setValue:[[RMConfiguration sharedInstance] userAgent] forHTTPHeaderField:@"User-Agent"];
 }
 
 @end
 
-#pragma mark -
+@implementation NSURLRequest (RMUserAgent)
 
-@implementation NSString (RMUserAgent)
++ (instancetype)requestWithHeaderForURL:(NSURL *)url {
+    NSMutableURLRequest *mRequest = [NSMutableURLRequest requestWithURL:url];
+    [mRequest appendHeaderAgentValue];
 
-+ (instancetype)brandedStringWithContentsOfURL:(NSURL *)url encoding:(NSStringEncoding)enc error:(NSError **)error
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    return [mRequest copy];
+}
 
-    [request setValue:[[RMConfiguration sharedInstance] userAgent] forHTTPHeaderField:@"User-Agent"];
++ (instancetype)requestWithHeaderForURL:(NSURL *)url cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval {
+    NSMutableURLRequest *mRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:cachePolicy timeoutInterval:timeoutInterval];
+    [mRequest appendHeaderAgentValue];
 
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
-
-    if ( ! returnData)
-        return nil;
-
-    return [[[self class] alloc] initWithData:returnData encoding:enc];
+    return [mRequest copy];
 }
 
 @end
 
-#pragma mark -
+//@implementation NSURLConnection (RMUserAgent)
+//
+//+ (NSData *)sendBrandedSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
+//{
+//    NSMutableURLRequest *newRequest = [NSMutableURLRequest requestWithURL:request.URL
+//                                                              cachePolicy:request.cachePolicy
+//                                                          timeoutInterval:request.timeoutInterval];
+//
+//    [newRequest setValue:[[RMConfiguration sharedInstance] userAgent] forHTTPHeaderField:@"User-Agent"];
+//
+//    return [NSURLConnection sendSynchronousRequest:newRequest returningResponse:response error:error];
+//}
+//
+//@end
+//
+//#pragma mark -
+//
+//@implementation NSData (RMUserAgent)
+//
+//+ (instancetype)brandedDataWithContentsOfURL:(NSURL *)aURL
+//{
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aURL];
+//
+//    [request setValue:[[RMConfiguration sharedInstance] userAgent] forHTTPHeaderField:@"User-Agent"];
+//
+//    return [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//}
+//
+//@end
+//
+//#pragma mark -
+//
+//@implementation NSString (RMUserAgent)
+//
+//+ (instancetype)brandedStringWithContentsOfURL:(NSURL *)url encoding:(NSStringEncoding)enc error:(NSError **)error
+//{
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+//
+//    [request setValue:[[RMConfiguration sharedInstance] userAgent] forHTTPHeaderField:@"User-Agent"];
+//
+//    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
+//
+//    if ( ! returnData)
+//        return nil;
+//
+//    return [[[self class] alloc] initWithData:returnData encoding:enc];
+//}
+//
+//@end
+//
+//#pragma mark -
 
 @implementation RMConfiguration
 {
