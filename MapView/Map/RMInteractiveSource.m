@@ -34,6 +34,8 @@
 #import "RMInteractiveSource.h"
 
 #import "RMConfiguration.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 #import "FMDB.h"
 

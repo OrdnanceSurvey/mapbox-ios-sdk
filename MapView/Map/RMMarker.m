@@ -29,6 +29,8 @@
 
 #import "RMPixel.h"
 #import "RMConfiguration.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 @implementation RMMarker
 

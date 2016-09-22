@@ -63,17 +63,3 @@
 @property (nonatomic, retain) NSString *userAgent;
 
 @end
-
-@interface NSURLRequest (RMUserAgent)
-
-+ (instancetype)requestWithHeaderForURL:(NSURL *)url;
-+ (instancetype)requestWithHeaderForURL:(NSURL *)url cachePolicy:(NSURLRequestCachePolicy)cachePolicy timeoutInterval:(NSTimeInterval)timeoutInterval;
-
-@end
-
-@interface NSURLSession (RMUserAgent)
-
-+ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error;
-+ (NSData *)fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error response:(NSURLResponse **)response;
-
-@end

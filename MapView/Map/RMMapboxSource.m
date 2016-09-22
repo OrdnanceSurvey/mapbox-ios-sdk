@@ -36,6 +36,8 @@
 #import "RMMapView.h"
 #import "RMPointAnnotation.h"
 #import "RMConfiguration.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 @interface RMMapboxSource ()
 

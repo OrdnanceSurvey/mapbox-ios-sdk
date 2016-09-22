@@ -29,6 +29,8 @@
 
 #import "RMTileCache.h"
 #import "RMConfiguration.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 #define HTTP_404_NOT_FOUND 404
 #define HTTP_204_NO_CONTENT 204

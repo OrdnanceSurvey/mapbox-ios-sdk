@@ -28,6 +28,8 @@
 #import "RMTileCacheDownloadOperation.h"
 #import "RMAbstractWebMapSource.h"
 #import "RMConfiguration.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 @implementation RMTileCacheDownloadOperation
 {
