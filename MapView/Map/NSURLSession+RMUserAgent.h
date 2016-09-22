@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSURLSession (RMUserAgent)
 
 /**
@@ -19,7 +21,7 @@
 
  @return The data returned by the server.
  */
-+ (NSData *)rm_fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error;
++ (nullable NSData *)rm_fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error;
 
 
 /**
@@ -32,6 +34,8 @@
 
  @return The data returned by the server.
  */
-+ (NSData *)rm_fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error response:(NSURLResponse **)response;
++ (nullable NSData *)rm_fetchDataSynchronouslyWithRequest:(NSURLRequest *)request error:(NSError **)error response:(NSURLResponse *_Nullable *_Nullable)response;
 
 @end
+
+NS_ASSUME_NONNULL_END
