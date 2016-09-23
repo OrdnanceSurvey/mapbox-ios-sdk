@@ -7,6 +7,7 @@
 //
 
 #import "NSURLSession+RMUserAgent.h"
+#import "RMConfiguration.h"
 
 @implementation NSURLSession (RMUserAgent)
 
@@ -24,7 +25,7 @@ static int64_t semaphoreExtraTimeout = 10;
     __block NSURLResponse *blockResponse;
 
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    NSURLSessionTask *task = [NSURLSession.sharedSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *requestError)
+    NSURLSessionTask *task = [RMConfiguration.sharedInstance.mapBoxUrlSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *requestError)
                               {
                                   blockData = data;
                                   blockError = requestError;
@@ -38,15 +39,25 @@ static int64_t semaphoreExtraTimeout = 10;
 
     // if it happens that the semaphore will quit before the task does stop the task.
     // such behaviour is unexpected and should not happen, so we can treat it as an error.
-    if (task.state == NSURLSessionTaskStateRunning) {
+    if (task.state == NSURLSessionTaskStateRunning)
+    {
+        if (error)
+        {
+            NSDictionary *errorUserInfo = @{
+                                            NSLocalizedDescriptionKey: NSLocalizedString(@"Could not download part of the map.", nil),
+                                            NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation timed out.", nil),
+                                            NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Try to connect to a better network.", nil)
+                                            };
+            *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:errorUserInfo];
+        }
         [task cancel];
     }
 
-    if (blockError && error)
+    if (error)
     {
         *error = blockError;
     }
-    if (blockResponse && response)
+    if (response)
     {
         *response = blockResponse;
     }

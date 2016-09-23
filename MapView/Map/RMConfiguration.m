@@ -55,30 +55,35 @@ static RMConfiguration *RMConfigurationSharedInstance = nil;
 - (RMConfiguration *)initWithPath:(NSString *)path
 {
     if (!(self = [super init]))
+    {
         return nil;
+    }
 
     _userAgent = [NSString stringWithFormat:@"Mapbox iOS SDK (%@/%@)", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
 
     if (path == nil)
     {
         _propertyList = nil;
-        return self;
     }
-
-    RMLog(@"reading route-me configuration from %@", path);
-
-    NSError *error = nil;
-    NSData *plistData = [NSData dataWithContentsOfFile:path];
-
-    _propertyList = [NSPropertyListSerialization propertyListWithData:plistData
-                                                              options:NSPropertyListImmutable
-                                                               format:NULL
-                                                                error:&error];
-
-    if ( ! _propertyList)
+    else
     {
-        RMLog(@"problem reading route-me configuration from %@: %@", path, error);
+        RMLog(@"reading route-me configuration from %@", path);
+
+        NSError *error = nil;
+        NSData *plistData = [NSData dataWithContentsOfFile:path];
+
+        _propertyList = [NSPropertyListSerialization propertyListWithData:plistData
+                                                                  options:NSPropertyListImmutable
+                                                                   format:NULL
+                                                                    error:&error];
+        if (!_propertyList)
+        {
+            RMLog(@"problem reading route-me configuration from %@: %@", path, error);
+        }
     }
+
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    _mapBoxUrlSession = [NSURLSession sessionWithConfiguration:sessionConfiguration];
 
     return self;
 }

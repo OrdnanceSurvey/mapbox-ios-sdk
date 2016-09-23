@@ -47,6 +47,9 @@
 /** A Mapbox API access token. Obtain an access token on your [Mapbox account page](https://www.mapbox.com/account/apps/). */
 @property (nonatomic, retain) NSString *accessToken;
 
+/** A default URL session for the framework */
+@property (nonatomic, readonly) NSURLSession *mapBoxUrlSession;
+
 /** @name Cache Configuration */
 
 /** Access the disk- and memory-based cache configuration. 
