@@ -83,7 +83,7 @@ static RMConfiguration *RMConfigurationSharedInstance = nil;
     }
 
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    _mapBoxUrlSession = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+    _urlSession = [NSURLSession sessionWithConfiguration:sessionConfiguration];
 
     return self;
 }

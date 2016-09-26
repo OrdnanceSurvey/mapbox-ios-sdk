@@ -48,7 +48,7 @@
 @property (nonatomic, retain) NSString *accessToken;
 
 /** A default URL session for the framework */
-@property (nonatomic, readonly) NSURLSession *mapBoxUrlSession;
+@property (nonatomic, readonly) NSURLSession *urlSession;
 
 /** @name Cache Configuration */
 

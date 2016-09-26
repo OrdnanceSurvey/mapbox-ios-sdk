@@ -25,7 +25,7 @@ static int64_t semaphoreExtraTimeout = 10;
     __block NSURLResponse *blockResponse;
 
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    NSURLSessionTask *task = [RMConfiguration.sharedInstance.mapBoxUrlSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *requestError)
+    NSURLSessionTask *task = [RMConfiguration.sharedInstance.urlSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *requestError)
                               {
                                   blockData = data;
                                   blockError = requestError;
