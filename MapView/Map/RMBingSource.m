@@ -28,6 +28,8 @@
 #import "RMBingSource.h"
 
 #import "RMConfiguration.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 @implementation RMBingSource
 {
@@ -74,12 +76,14 @@
         else
             imagerySetString = @"Road";
 
+        NSError *error;
         NSURL *metadataURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://dev.virtualearth.net/REST/v1/Imagery/Metadata/%@?key=%@", imagerySetString, _mapsKey]];
+        NSData *metadataData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:[NSURLRequest rm_requestWithHeaderForURL:metadataURL] error:&error];
 
-        NSData *metadataData = [NSData brandedDataWithContentsOfURL:metadataURL];
-
-        if ( ! metadataData)
+        if (!metadataData || error)
+        {
             return nil;
+        }
 
         id metadata = [NSJSONSerialization JSONObjectWithData:metadataData options:0 error:NULL];
 

@@ -36,6 +36,8 @@
 #import "RMMapView.h"
 #import "RMPointAnnotation.h"
 #import "RMConfiguration.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 @interface RMMapboxSource ()
 
@@ -96,11 +98,14 @@
             {
                 if ([dataObject isKindOfClass:[NSArray class]] && [[dataObject objectAtIndex:0] isKindOfClass:[NSString class]])
                 {
+                    NSError *error; NSMutableString *jsonString;
                     NSURL *dataURL = [NSURL URLWithString:[dataObject objectAtIndex:0]];
+                    NSData *fetchedData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:[NSURLRequest rm_requestWithHeaderForURL:dataURL] error:&error];
+                    if (!error && fetchedData) {
+                        jsonString = [[NSMutableString alloc] initWithData:fetchedData encoding:NSUTF8StringEncoding];
+                    }
                     
-                    NSMutableString *jsonString = nil;
-                    
-                    if (dataURL && (jsonString = [NSMutableString brandedStringWithContentsOfURL:dataURL encoding:NSUTF8StringEncoding error:nil]) && jsonString)
+                    if (dataURL && jsonString)
                     {
                         if ([jsonString hasPrefix:@"grid("])
                         {
@@ -155,8 +160,6 @@
 
 - (id)initWithReferenceURL:(NSURL *)referenceURL enablingDataOnMapView:(RMMapView *)mapView
 {
-    id dataObject = nil;
-    
     if ([[referenceURL pathExtension] isEqualToString:@"jsonp"])
     {
         referenceURL = [NSURL URLWithString:[[referenceURL absoluteString] stringByReplacingOccurrencesOfString:@".jsonp"
@@ -165,18 +168,23 @@
                                                                                                           range:NSMakeRange(0, [[referenceURL absoluteString] length])]];
     }
 
-    NSError *error = nil;
-
-    if ([[referenceURL pathExtension] isEqualToString:@"json"] && (dataObject = [NSString brandedStringWithContentsOfURL:referenceURL encoding:NSUTF8StringEncoding error:&error]) && dataObject)
+    NSError *error; NSString *jsonString;
+    NSData *fetchedData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:[NSURLRequest rm_requestWithHeaderForURL:referenceURL] error:&error];
+    if (!error && fetchedData)
     {
-        if (error && [error.domain isEqual:NSURLErrorDomain] && error.code == -1012)
-        {
-#ifdef DEBUG
-            NSAssert(![[dataObject lowercaseString] hasSuffix:@"invalid token\"}"], @"invalid token in use");
-#endif
-        }
+        jsonString = [[NSString alloc] initWithData:fetchedData encoding:NSUTF8StringEncoding];
+    }
 
-        return [self initWithTileJSON:dataObject enablingDataOnMapView:mapView];
+    if (!jsonString && error && [error.domain isEqual:NSURLErrorDomain] && error.code == -1012)
+    {
+        // OSWarn: This was here previously and I don't know the reasoning behind this weird idea, so I'm leaving it as it was.
+#ifdef DEBUG
+        NSAssert(![[jsonString lowercaseString] hasSuffix:@"invalid token\"}"], @"invalid token in use");
+#endif
+    }
+    else if ([referenceURL.pathExtension isEqualToString:@"json"] && jsonString)
+    {
+        return [self initWithTileJSON:jsonString enablingDataOnMapView:mapView];
     }
 
     return nil;

@@ -28,6 +28,8 @@
 #import "RMTileCacheDownloadOperation.h"
 #import "RMAbstractWebMapSource.h"
 #import "RMConfiguration.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 @implementation RMTileCacheDownloadOperation
 {
@@ -66,12 +68,10 @@
         NSURL *tileURL = [(RMAbstractWebMapSource *)_source URLForTile:_tile];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:tileURL];
         request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-        NSError *error = nil;
-        NSData *data = [NSURLConnection sendBrandedSynchronousRequest:request
-                                                    returningResponse:nil
-                                                                error:&error];
+        NSError *error;
+        NSData *data = [NSURLSession rm_fetchDataSynchronouslyWithRequest:request error:&error];
 
-        if ( ! data || error != nil)
+        if (!data || error != nil)
         {
             if (error != nil)
             {

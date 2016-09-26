@@ -47,6 +47,9 @@
 /** A Mapbox API access token. Obtain an access token on your [Mapbox account page](https://www.mapbox.com/account/apps/). */
 @property (nonatomic, retain) NSString *accessToken;
 
+/** A default URL session for the framework */
+@property (nonatomic, readonly) NSURLSession *urlSession;
+
 /** @name Cache Configuration */
 
 /** Access the disk- and memory-based cache configuration. 
@@ -61,29 +64,5 @@
 *
 *   Example: `MyMapApp/1.2` */
 @property (nonatomic, retain) NSString *userAgent;
-
-@end
-
-#pragma mark -
-
-@interface NSURLConnection (RMUserAgent)
-
-+ (NSData *)sendBrandedSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error;
-
-@end
-
-#pragma mark -
-
-@interface NSData (RMUserAgent)
-
-+ (instancetype)brandedDataWithContentsOfURL:(NSURL *)aURL;
-
-@end
-
-#pragma mark -
-
-@interface NSString (RMUserAgent)
-
-+ (instancetype)brandedStringWithContentsOfURL:(NSURL *)url encoding:(NSStringEncoding)enc error:(NSError **)error;
 
 @end

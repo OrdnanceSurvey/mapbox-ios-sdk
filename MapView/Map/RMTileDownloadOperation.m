@@ -10,6 +10,8 @@
 #import "RMAbstractWebMapSource.h"
 #import "RMConfiguration.h"
 #import "RMTileCache.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 #define HTTP_404_NOT_FOUND 404
 #define HTTP_204_NO_CONTENT 204
@@ -96,8 +98,11 @@ boundsInScrollView:(CGRect)bounds
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:tileURL];
             request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
             NSError *error = nil;
-            NSHTTPURLResponse *response = self.response;
-            self.image = [UIImage imageWithData:[NSURLConnection sendBrandedSynchronousRequest:request returningResponse:&response error:&error]];
+            NSURLResponse *urlResponse = nil;
+            NSData *fetchedData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:request error:&error response:&urlResponse];
+            NSHTTPURLResponse *response = [urlResponse isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)urlResponse : nil;
+            self.response = response;
+            self.image = [UIImage imageWithData:fetchedData];
 
             if (response.statusCode == HTTP_404_NOT_FOUND)
             {

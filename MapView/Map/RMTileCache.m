@@ -37,6 +37,14 @@
 #import "RMAbstractWebMapSource.h"
 
 #import "RMTileCacheDownloadOperation.h"
+#import "RMBackgroundOperationWorker.h"
+
+@interface RMTileCache ()
+
+@property(nonatomic, readonly) RMBackgroundOperationWorker *backgroundWorker;
+@property(nonatomic, readonly) NSOperationQueue *backgroundFetchQueue;
+
+@end
 
 @interface RMTileCache (Configuration)
 
@@ -58,7 +66,6 @@
     dispatch_queue_t _tileCacheQueue;
     
     id <RMTileSource>_activeTileSource;
-    NSOperationQueue *_backgroundFetchQueue;
 }
 
 @synthesize backgroundCacheDelegate=_backgroundCacheDelegate;
@@ -365,6 +372,13 @@
 
     __block NSUInteger progTile = 0;
 
+    __weak RMTileCache *weakSelf = self;
+    _backgroundWorker = [[RMBackgroundOperationWorker alloc] initWithBackgroundTaskName:[self hashForCachingOperationForTileSource:tileSource southWest:southWest northEast:northEast minZoom:minZoom maxZoom:maxZoom] taskExpirationHandler:^{
+        weakSelf.backgroundFetchQueue.suspended = YES;
+    } appEnteredForegroundHandler:^{
+        weakSelf.backgroundFetchQueue.suspended = NO;
+    }];
+
     for (NSUInteger zoom = minCacheZoom; zoom <= maxCacheZoom; zoom++)
     {
         n = pow(2.0, zoom);
@@ -382,7 +396,6 @@
                                                                                                    usingCache:cache];
 
                 __weak RMTileCacheDownloadOperation *internalOperation = operation;
-                __weak RMTileCache *weakSelf = self;
 
                 [operation setCompletionBlock:^(void)
                 {
@@ -480,6 +493,10 @@
     [dbCache setMinimalPurge:0];
     
     return dbCache;
+}
+
+- (NSString *)hashForCachingOperationForTileSource:(id<RMTileSource>)tileSource southWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast minZoom:(NSUInteger)minZoom maxZoom:(NSUInteger)maxZoom {
+    return [NSString stringWithFormat:@"%@:(%f-%f)-(%f-%f) %li %li", tileSource.uniqueTilecacheKey, southWest.latitude, southWest.longitude, northEast.latitude, northEast.longitude, (unsigned long)minZoom, (unsigned long)maxZoom];
 }
 
 @end

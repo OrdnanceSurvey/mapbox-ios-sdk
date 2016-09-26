@@ -34,6 +34,8 @@
 #import "RMInteractiveSource.h"
 
 #import "RMConfiguration.h"
+#import "NSURLSession+RMUserAgent.h"
+#import "NSURLRequest+RMUserAgent.h"
 
 #import "FMDB.h"
 
@@ -551,10 +553,10 @@ RMTilePoint RMInteractiveSourceNormalizedTilePointForMapView(CGPoint point, RMMa
         }
 
         // get the data for this tile
-        //
-        NSData *gridData = [NSData brandedDataWithContentsOfURL:[NSURL URLWithString:gridURLString]];
+        NSURL *gridUrl = [NSURL URLWithString:gridURLString]; NSError *error;
+        NSData *gridData = [NSURLSession rm_fetchDataSynchronouslyWithRequest:[NSURLRequest rm_requestWithHeaderForURL:gridUrl] error:&error];
         
-        if (gridData)
+        if (gridData && !error)
         {
             NSMutableString *gridString = [[NSMutableString alloc] initWithData:gridData encoding:NSUTF8StringEncoding];
             

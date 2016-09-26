@@ -230,6 +230,12 @@
 		4AF3A6C91AA512C100CD6FAF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B8474BC00EB4019A006A0BC1 /* libsqlite3.dylib */; };
 		4AF3A6CB1AA512E400CD6FAF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF3A6CA1AA512E400CD6FAF /* libz.dylib */; };
 		4AF3A6D61AA534DA00CD6FAF /* Mapbox_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 4AF3A6D51AA534DA00CD6FAF /* Mapbox_Prefix.pch */; };
+		644E48F21D93F08B00F934FA /* NSURLSession+RMUserAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 644E48F01D93F08B00F934FA /* NSURLSession+RMUserAgent.h */; };
+		644E48F31D93F08B00F934FA /* NSURLSession+RMUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 644E48F11D93F08B00F934FA /* NSURLSession+RMUserAgent.m */; };
+		644E48F61D93F11A00F934FA /* NSURLRequest+RMUserAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 644E48F41D93F11A00F934FA /* NSURLRequest+RMUserAgent.h */; };
+		644E48F71D93F11A00F934FA /* NSURLRequest+RMUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 644E48F51D93F11A00F934FA /* NSURLRequest+RMUserAgent.m */; };
+		644E48FB1D942BB100F934FA /* RMBackgroundOperationWorker.h in Headers */ = {isa = PBXBuildFile; fileRef = 644E48F91D942BB100F934FA /* RMBackgroundOperationWorker.h */; };
+		644E48FC1D942BB100F934FA /* RMBackgroundOperationWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 644E48FA1D942BB100F934FA /* RMBackgroundOperationWorker.m */; };
 		96492C400FA8AD3400EBA6D2 /* RMGlobalConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B1EB26C610B5D8E6009F8658 /* RMNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EB26C510B5D8E6009F8658 /* RMNotifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B318272A1ACAB1320041BEEC /* RMTileDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = B31827281ACAB1320041BEEC /* RMTileDownloadOperation.h */; };
@@ -434,6 +440,12 @@
 		4AA8AAAA1AA0F311007C21F1 /* Mapbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mapbox.h; sourceTree = "<group>"; };
 		4AF3A6CA1AA512E400CD6FAF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4AF3A6D51AA534DA00CD6FAF /* Mapbox_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mapbox_Prefix.pch; sourceTree = "<group>"; };
+		644E48F01D93F08B00F934FA /* NSURLSession+RMUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+RMUserAgent.h"; sourceTree = "<group>"; };
+		644E48F11D93F08B00F934FA /* NSURLSession+RMUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+RMUserAgent.m"; sourceTree = "<group>"; };
+		644E48F41D93F11A00F934FA /* NSURLRequest+RMUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+RMUserAgent.h"; sourceTree = "<group>"; };
+		644E48F51D93F11A00F934FA /* NSURLRequest+RMUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+RMUserAgent.m"; sourceTree = "<group>"; };
+		644E48F91D942BB100F934FA /* RMBackgroundOperationWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMBackgroundOperationWorker.h; sourceTree = "<group>"; };
+		644E48FA1D942BB100F934FA /* RMBackgroundOperationWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMBackgroundOperationWorker.m; sourceTree = "<group>"; };
 		96492C3F0FA8AD3400EBA6D2 /* RMGlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGlobalConstants.h; sourceTree = "<group>"; };
 		B1EB26C510B5D8E6009F8658 /* RMNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMNotifications.h; sourceTree = "<group>"; };
 		B31827281ACAB1320041BEEC /* RMTileDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileDownloadOperation.h; sourceTree = "<group>"; };
@@ -698,6 +710,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		644E48EF1D93F05B00F934FA /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				644E48F01D93F08B00F934FA /* NSURLSession+RMUserAgent.h */,
+				644E48F11D93F08B00F934FA /* NSURLSession+RMUserAgent.m */,
+				644E48F41D93F11A00F934FA /* NSURLRequest+RMUserAgent.h */,
+				644E48F51D93F11A00F934FA /* NSURLRequest+RMUserAgent.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		644E48F81D942B7C00F934FA /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				644E48F91D942BB100F934FA /* RMBackgroundOperationWorker.h */,
+				644E48FA1D942BB100F934FA /* RMBackgroundOperationWorker.m */,
+				644E48EF1D93F05B00F934FA /* Categories */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		B83E64CE0E80E73F001663B6 /* Tile & Overlay Rendering */ = {
 			isa = PBXGroup;
 			children = (
@@ -826,6 +859,7 @@
 				DD8FD7571559ED930044D96F /* User Location */,
 				DD3BEF71159134E0007892D8 /* Attribution */,
 				1266929E0EB75BEA00E002D5 /* Configuration */,
+				644E48F81D942B7C00F934FA /* Networking */,
 				DD932B5B165C261A00D69D49 /* Low-Level Details */,
 				DD932BC1165C287600D69D49 /* Resources */,
 			);
@@ -981,6 +1015,7 @@
 			files = (
 				4AA8AB1E1AA0F355007C21F1 /* RMFractalTileProjection.h in Headers */,
 				4AA8AAE41AA0F32D007C21F1 /* RMTileSourcesContainer.h in Headers */,
+				644E48F21D93F08B00F934FA /* NSURLSession+RMUserAgent.h in Headers */,
 				4AA8AB221AA0F35A007C21F1 /* RMMapTiledLayerView.h in Headers */,
 				4AA8AAE81AA0F32D007C21F1 /* RMAbstractWebMapSource.h in Headers */,
 				4AA8AB261AA0F35A007C21F1 /* RMMapScrollView.h in Headers */,
@@ -1024,6 +1059,7 @@
 				4AA8AB151AA0F351007C21F1 /* RMNotifications.h in Headers */,
 				4AA8AB1A1AA0F351007C21F1 /* RMPixel.h in Headers */,
 				4AA8AAD71AA0F328007C21F1 /* RMOpenSeaMapSource.h in Headers */,
+				644E48FB1D942BB100F934FA /* RMBackgroundOperationWorker.h in Headers */,
 				4AA8AAEE1AA0F332007C21F1 /* RMTileCacheDownloadOperation.h in Headers */,
 				4AA8AADB1AA0F328007C21F1 /* RMOpenStreetMapSource.h in Headers */,
 				4AA8AAD51AA0F328007C21F1 /* RMOpenCycleMapSource.h in Headers */,
@@ -1035,6 +1071,7 @@
 				4AA8AADD1AA0F328007C21F1 /* RMBingSource.h in Headers */,
 				4AA8AB5C1AA0F373007C21F1 /* SMCalloutView.h in Headers */,
 				4AA8AB5E1AA0F373007C21F1 /* SMClassicCalloutView.h in Headers */,
+				644E48F61D93F11A00F934FA /* NSURLRequest+RMUserAgent.h in Headers */,
 				B318272A1ACAB1320041BEEC /* RMTileDownloadOperation.h in Headers */,
 				4AA8AAC91AA0F328007C21F1 /* RMDBMapSource.h in Headers */,
 				4AA8AB571AA0F367007C21F1 /* FMDB.h in Headers */,
@@ -1356,6 +1393,7 @@
 				4AA8AAC11AA0F322007C21F1 /* RMMapView.m in Sources */,
 				4AA8AB231AA0F35A007C21F1 /* RMMapTiledLayerView.m in Sources */,
 				4AA8AB111AA0F342007C21F1 /* RMAttributionViewController.m in Sources */,
+				644E48FC1D942BB100F934FA /* RMBackgroundOperationWorker.m in Sources */,
 				4AA8AAE01AA0F328007C21F1 /* RMTileMillSource.m in Sources */,
 				4AA8AAF71AA0F338007C21F1 /* RMPointAnnotation.m in Sources */,
 				4AA8AB591AA0F367007C21F1 /* FMResultSet.m in Sources */,
@@ -1380,9 +1418,11 @@
 				4AA8AB031AA0F338007C21F1 /* RMQuadTree.m in Sources */,
 				4AA8AB0F1AA0F33D007C21F1 /* RMUserTrackingBarButtonItem.m in Sources */,
 				4AA8AAF11AA0F332007C21F1 /* RMMemoryCache.m in Sources */,
+				644E48F71D93F11A00F934FA /* NSURLRequest+RMUserAgent.m in Sources */,
 				4AA8AB521AA0F367007C21F1 /* FMDatabaseAdditions.m in Sources */,
 				4AA8AB131AA0F347007C21F1 /* RMConfiguration.m in Sources */,
 				4AA8AB051AA0F338007C21F1 /* RMMapLayer.m in Sources */,
+				644E48F31D93F08B00F934FA /* NSURLSession+RMUserAgent.m in Sources */,
 				4AA8AAD01AA0F328007C21F1 /* RMMapQuestOpenAerialSource.m in Sources */,
 				4AA8AAFF1AA0F338007C21F1 /* RMCircleAnnotation.m in Sources */,
 			);
