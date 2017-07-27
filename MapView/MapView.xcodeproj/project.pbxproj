@@ -219,7 +219,8 @@
 		4AF3A6C91AA512C100CD6FAF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B8474BC00EB4019A006A0BC1 /* libsqlite3.dylib */; };
 		4AF3A6CB1AA512E400CD6FAF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF3A6CA1AA512E400CD6FAF /* libz.dylib */; };
 		4AF3A6D61AA534DA00CD6FAF /* Mapbox_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 4AF3A6D51AA534DA00CD6FAF /* Mapbox_Prefix.pch */; };
-		4C2D84981F2A3F6C00E9BABE /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2D84971F2A3F6C00E9BABE /* FMDB.framework */; };
+		4C2D849C1F2A4D9C00E9BABE /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2D849B1F2A4D9C00E9BABE /* FMDB.framework */; };
+		4C2D849D1F2A4DB300E9BABE /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2D849B1F2A4D9C00E9BABE /* FMDB.framework */; };
 		644E48F21D93F08B00F934FA /* NSURLSession+RMUserAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 644E48F01D93F08B00F934FA /* NSURLSession+RMUserAgent.h */; };
 		644E48F31D93F08B00F934FA /* NSURLSession+RMUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 644E48F11D93F08B00F934FA /* NSURLSession+RMUserAgent.m */; };
 		644E48F61D93F11A00F934FA /* NSURLRequest+RMUserAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 644E48F41D93F11A00F934FA /* NSURLRequest+RMUserAgent.h */; };
@@ -419,7 +420,7 @@
 		4AA8AAAA1AA0F311007C21F1 /* Mapbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mapbox.h; sourceTree = "<group>"; };
 		4AF3A6CA1AA512E400CD6FAF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4AF3A6D51AA534DA00CD6FAF /* Mapbox_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mapbox_Prefix.pch; sourceTree = "<group>"; };
-		4C2D84971F2A3F6C00E9BABE /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Map/FMDB/FMDB.framework; sourceTree = "<group>"; };
+		4C2D849B1F2A4D9C00E9BABE /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Map/FMDB.framework; sourceTree = "<group>"; };
 		644E48F01D93F08B00F934FA /* NSURLSession+RMUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+RMUserAgent.h"; sourceTree = "<group>"; };
 		644E48F11D93F08B00F934FA /* NSURLSession+RMUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+RMUserAgent.m"; sourceTree = "<group>"; };
 		644E48F41D93F11A00F934FA /* NSURLRequest+RMUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+RMUserAgent.h"; sourceTree = "<group>"; };
@@ -558,7 +559,7 @@
 				4AA8AB621AA0F3D8007C21F1 /* CoreGraphics.framework in Frameworks */,
 				4AA8AB611AA0F3D3007C21F1 /* CoreFoundation.framework in Frameworks */,
 				4AA8AB601AA0F3C2007C21F1 /* Foundation.framework in Frameworks */,
-				4C2D84981F2A3F6C00E9BABE /* FMDB.framework in Frameworks */,
+				4C2D849C1F2A4D9C00E9BABE /* FMDB.framework in Frameworks */,
 				4AA8AB5A1AA0F36C007C21F1 /* libGRMustache7-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -574,6 +575,7 @@
 				B8C974540E8A19B2007D16AD /* QuartzCore.framework in Frameworks */,
 				B8474BC10EB4019A006A0BC1 /* libsqlite3.dylib in Frameworks */,
 				DDEDBBD01A81864800646DBB /* libGRMustache7-iOS.a in Frameworks */,
+				4C2D849D1F2A4DB300E9BABE /* FMDB.framework in Frameworks */,
 				DD97C11616489678007C4652 /* libProj4.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,8 +652,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4C2D84971F2A3F6C00E9BABE /* FMDB.framework */,
 				4AF3A6CA1AA512E400CD6FAF /* libz.dylib */,
+				4C2D849B1F2A4D9C00E9BABE /* FMDB.framework */,
 				B83E65590E80E7EB001663B6 /* CoreFoundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				B83E65630E80E81C001663B6 /* CoreLocation.framework */,
@@ -1467,6 +1469,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Map/FMDB",
+					"$(PROJECT_DIR)/Map",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1530,6 +1533,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Map/FMDB",
+					"$(PROJECT_DIR)/Map",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1583,6 +1587,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Map/FMDB",
+					"$(PROJECT_DIR)/Map",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1611,6 +1620,11 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Map/FMDB",
+					"$(PROJECT_DIR)/Map",
+				);
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MapView_Prefix.pch;
