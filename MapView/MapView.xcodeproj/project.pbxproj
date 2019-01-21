@@ -406,7 +406,7 @@
 		16FBF07515936BF1004ECAD1 /* RMTileSourcesContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileSourcesContainer.m; sourceTree = "<group>"; };
 		16FFF2C914E3DBF700A170EC /* RMMapQuestOpenAerialSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapQuestOpenAerialSource.h; sourceTree = "<group>"; };
 		16FFF2CA14E3DBF700A170EC /* RMMapQuestOpenAerialSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMapQuestOpenAerialSource.m; sourceTree = "<group>"; };
-		17F31EFA1331050A00122B16 /* libMapbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMapbox.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		17F31EFA1331050A00122B16 /* libOldMapbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOldMapbox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		23A0AAE80EB90A99003A4521 /* RMFoundation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMFoundation.c; sourceTree = "<group>"; };
@@ -415,7 +415,7 @@
 		25757F4E1291C8640083D504 /* RMCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCircle.m; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* MapView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapView_Prefix.pch; sourceTree = SOURCE_ROOT; };
-		4AA8AAA61AA0F310007C21F1 /* MapBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AA8AAA61AA0F310007C21F1 /* OldMapBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OldMapBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AA8AAA91AA0F311007C21F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AA8AAAA1AA0F311007C21F1 /* Mapbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mapbox.h; sourceTree = "<group>"; };
 		4AF3A6CA1AA512E400CD6FAF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -490,7 +490,7 @@
 		DD63175E17D1506D008CA79B /* RMGreatCircleAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGreatCircleAnnotation.m; sourceTree = "<group>"; };
 		DD63176117D15EB5008CA79B /* RMCircleAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCircleAnnotation.h; sourceTree = "<group>"; };
 		DD63176217D15EB5008CA79B /* RMCircleAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCircleAnnotation.m; sourceTree = "<group>"; };
-		DD6A83751644A20C0097F31F /* Mapbox.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Mapbox.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD6A83751644A20C0097F31F /* OldMapbox.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OldMapbox.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD7C7E36164C894F0021CCA5 /* RMStaticMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMStaticMapView.h; sourceTree = "<group>"; };
 		DD7C7E37164C894F0021CCA5 /* RMStaticMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMStaticMapView.m; sourceTree = "<group>"; };
 		DD8CDB4814E0507100B73EB9 /* RMMapQuestOSMSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapQuestOSMSource.h; sourceTree = "<group>"; };
@@ -630,9 +630,9 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				17F31EFA1331050A00122B16 /* libMapbox.a */,
-				DD6A83751644A20C0097F31F /* Mapbox.bundle */,
-				4AA8AAA61AA0F310007C21F1 /* MapBox.framework */,
+				17F31EFA1331050A00122B16 /* libOldMapbox.a */,
+				DD6A83751644A20C0097F31F /* OldMapbox.bundle */,
+				4AA8AAA61AA0F310007C21F1 /* OldMapBox.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1116,7 +1116,7 @@
 			);
 			name = MapBox;
 			productName = "MapBox-iOS-SDK";
-			productReference = 4AA8AAA61AA0F310007C21F1 /* MapBox.framework */;
+			productReference = 4AA8AAA61AA0F310007C21F1 /* OldMapBox.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		B8C974130E8A19B2007D16AD /* MapView */ = {
@@ -1134,7 +1134,7 @@
 			);
 			name = MapView;
 			productName = MapView;
-			productReference = 17F31EFA1331050A00122B16 /* libMapbox.a */;
+			productReference = 17F31EFA1331050A00122B16 /* libOldMapbox.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		DD6A83741644A20C0097F31F /* Resources */ = {
@@ -1150,7 +1150,7 @@
 			);
 			name = Resources;
 			productName = Resources;
-			productReference = DD6A83751644A20C0097F31F /* Mapbox.bundle */;
+			productReference = DD6A83751644A20C0097F31F /* OldMapbox.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -1501,7 +1501,8 @@
 					"\"$(SRCROOT)/Map/FMDB\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = "Old$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "Old$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1559,7 +1560,8 @@
 					"\"$(SRCROOT)/Map/FMDB\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = "Old$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "Old$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1570,14 +1572,16 @@
 		B3B8A78E1AC42D9D0083E33D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = "Old$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "Old$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		B3B8A78F1AC42D9D0083E33D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = "Old$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "Old$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1608,7 +1612,8 @@
 					"\"$(SRCROOT)/../Proj4\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = Mapbox;
+				PRODUCT_MODULE_NAME = "Old$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = OldMapbox;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 			};
 			name = Debug;
@@ -1640,7 +1645,8 @@
 					"\"$(SRCROOT)/../Proj4\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = Mapbox;
+				PRODUCT_MODULE_NAME = "Old$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = OldMapbox;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1741,7 +1747,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = Mapbox;
+				PRODUCT_MODULE_NAME = "Old$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = OldMapbox;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -1763,7 +1770,8 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_NAME = Mapbox;
+				PRODUCT_MODULE_NAME = "Old$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = OldMapbox;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
